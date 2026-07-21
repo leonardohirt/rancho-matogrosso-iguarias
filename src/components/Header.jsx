@@ -30,7 +30,6 @@ export default function Header({ cartCount, onOpenCart }) {
             <img src="/assets/logo.jpg" alt="Rancho Matogrosso Logo" />
             <div className="brand-text">
               <span className="brand-title">Rancho Matogrosso</span>
-              <span className="brand-subtitle">IGUARIAS & MORANGOS</span>
             </div>
           </a>
 
