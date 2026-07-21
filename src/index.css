@@ -1097,6 +1097,26 @@ button, input, select, textarea {
   background-color: var(--bg-cream);
 }
 
+/* Locations 2-Column Grid */
+.locations-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: stretch;
+}
+
+.locations-list-column {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.map-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .locations-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1542,7 +1562,8 @@ button, input, select, textarea {
     padding: 60px 0;
   }
   
-  .about-grid {
+  .about-grid,
+  .locations-layout-grid {
     grid-template-columns: 1fr;
   }
   
