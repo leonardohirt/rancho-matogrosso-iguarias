@@ -389,12 +389,11 @@ button, input, select, textarea {
   background-size: cover;
   background-position: center center;
   color: #FFF;
-  padding: 90px 0 70px 0;
-  overflow: hidden;
+  padding: 85px 0 0 0;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 .hero-content {
@@ -402,7 +401,7 @@ button, input, select, textarea {
   z-index: 2;
   text-align: center;
   max-width: 800px;
-  margin: 0 auto 50px auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -447,23 +446,24 @@ button, input, select, textarea {
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
+  margin-bottom: 75px;
 }
 
 .hero-highlights-wrapper {
   position: relative;
-  z-index: 5;
+  z-index: 20;
   width: 100%;
+  margin-bottom: -65px;
 }
 
 .hero-highlights-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: #1C1F26;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
   padding: 26px;
   text-align: left;
 }
