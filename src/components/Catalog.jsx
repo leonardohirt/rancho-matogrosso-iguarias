@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { products, categories } from '../data/products';
-import { ShoppingBag, Eye, Star } from 'lucide-react';
+import { ShoppingBag, Eye } from 'lucide-react';
 
 export default function Catalog({ onAddToCart, onQuickView }) {
   const [activeCategory, setActiveCategory] = useState('destaque');
@@ -22,11 +22,11 @@ export default function Catalog({ onAddToCart, onQuickView }) {
         </div>
 
         {/* Category Tabs */}
-        <div className="category-tabs">
+        <div className="category-tabs" style={{ marginBottom: '40px' }}>
           {categories.map(cat => (
             <button
               key={cat.id}
-              className={`category-tab ${activeCategory === cat.id ? 'active' : ''}`}
+              className={`tab-btn ${activeCategory === cat.id ? 'active' : ''}`}
               onClick={() => setActiveCategory(cat.id)}
             >
               {cat.label}
@@ -34,8 +34,8 @@ export default function Catalog({ onAddToCart, onQuickView }) {
           ))}
         </div>
 
-        {/* Product Cards Grid */}
-        <div className="product-grid">
+        {/* Product Cards Grid - Fixed Grid Class! */}
+        <div className="products-grid">
           {filteredProducts.map(product => (
             <div key={product.id} className="product-card">
               <div className="product-img-wrapper" onClick={() => onQuickView(product)} style={{ cursor: 'pointer' }}>
