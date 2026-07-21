@@ -385,33 +385,44 @@ button, input, select, textarea {
 /* Hero Section */
 .hero-section {
   position: relative;
-  background: linear-gradient(135deg, rgba(18,20,23,0.92), rgba(28,31,38,0.95)), url('/assets/morango_premium_colheita.jpg');
+  background: linear-gradient(180deg, rgba(15, 17, 21, 0.82) 0%, rgba(20, 23, 29, 0.88) 100%), url('/assets/morango_premium_colheita.jpg');
   background-size: cover;
-  background-position: center;
+  background-position: center center;
   color: #FFF;
-  padding: 80px 0 100px 0;
-  overflow: visible;
+  padding: 90px 0 70px 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
   text-align: center;
-  max-width: 850px;
-  margin-bottom: 20px;
+  max-width: 800px;
+  margin: 0 auto 50px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hero-badges {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 12px;
   margin-bottom: 24px;
+  flex-wrap: wrap;
 }
 
 .hero-title {
-  font-size: 3.8rem;
+  font-size: 3.6rem;
   color: #FFF;
   margin-bottom: 20px;
+  text-align: center;
+  line-height: 1.2;
 }
 
 .hero-title span {
@@ -422,38 +433,38 @@ button, input, select, textarea {
 }
 
 .hero-description {
-  font-size: 1.25rem;
-  color: #D1D5DB;
+  font-size: 1.2rem;
+  color: #E5E7EB;
   margin-bottom: 36px;
   line-height: 1.7;
+  text-align: center;
+  max-width: 720px;
 }
 
 .hero-buttons {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 16px;
   flex-wrap: wrap;
 }
 
 .hero-highlights-wrapper {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: relative;
+  z-index: 5;
   width: 100%;
-  transform: translateY(50%);
-  z-index: 25;
 }
 
 .hero-highlights-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  background: #1C1F26;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-  border-radius: 16px;
-  padding: 24px;
+  border-radius: var(--radius-lg);
+  padding: 26px;
   text-align: left;
 }
 
@@ -488,7 +499,7 @@ button, input, select, textarea {
 
 /* Catalog & Products */
 .catalog-section {
-  padding: 100px 0 90px 0;
+  padding: 90px 0;
   background-color: var(--bg-cream);
 }
 
