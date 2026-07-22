@@ -1,32 +1,31 @@
 import React, { useState } from 'react';
 import { products, categories } from '../data/products';
-import { ShoppingBag, Eye } from 'lucide-react';
+import { MessageCircle, Eye } from 'lucide-react';
 
 export default function Catalog({ onAddToCart, onQuickView }) {
-  const [activeCategory, setActiveCategory] = useState('destaque');
+  const [activeCategory, setActiveCategory] = useState('morangos');
 
-  const filteredProducts = products.filter(product => {
-    if (activeCategory === 'destaque') {
-      return product.featured === true;
-    }
-    return product.category === activeCategory;
-  });
+  const filteredProducts = products.filter(product => product.category === activeCategory);
 
   return (
     <section className="catalog-section" id="catalogo">
       <div className="container">
+        
+        {/* Header no estilo da referência */}
         <div className="section-header text-center">
-          <span className="section-tag">Nossos Produtos</span>
-          <h2 className="section-title">Catálogo Completo de Iguarias</h2>
-          <p className="section-subtitle">Escolha os melhores produtos direto da colheita e adicione à sua sacola para fazer o pedido via WhatsApp!</p>
+          <span className="section-tag-ref">NOSSA COLHEITA</span>
+          <h2 className="section-title-ref">Nosso Catálogo</h2>
+          <p className="section-subtitle-ref">
+            Explore nossa seleção premium. Clique no botão de pedido de qualquer item para abrir o WhatsApp com a mensagem pronta.
+          </p>
         </div>
 
-        {/* Category Tabs */}
-        <div className="category-tabs" style={{ marginBottom: '40px' }}>
+        {/* Abas de Categorias com o visual da imagem de referência */}
+        <div className="catalog-ref-tabs">
           {categories.map(cat => (
             <button
               key={cat.id}
-              className={`tab-btn ${activeCategory === cat.id ? 'active' : ''}`}
+              className={`cat-ref-btn ${activeCategory === cat.id ? 'active' : ''}`}
               onClick={() => setActiveCategory(cat.id)}
             >
               {cat.label}
@@ -34,50 +33,56 @@ export default function Catalog({ onAddToCart, onQuickView }) {
           ))}
         </div>
 
-        {/* Product Cards Grid - Fixed Grid Class! */}
-        <div className="products-grid">
+        {/* Grid de 4 Cards Fiel ao Design Enviado */}
+        <div className="catalog-ref-grid">
           {filteredProducts.map(product => (
-            <div key={product.id} className="product-card">
-              <div className="product-img-wrapper" onClick={() => onQuickView(product)} style={{ cursor: 'pointer' }}>
-                <span className={`product-badge ${product.tagClass}`}>{product.tag}</span>
-                <img 
-                  src={product.image} 
-                  alt={product.name} 
-                  loading="lazy"
-                  onError={(e) => {
-                    if (product.fallbackImage && e.target.src !== product.fallbackImage) {
-                      e.target.src = product.fallbackImage;
-                    }
-                  }}
-                />
+            <div key={product.id} className="catalog-ref-card">
+              
+              {/* Imagem Quadrada (1:1) com Badge e Botão Espiar */}
+              <div className="card-ref-img-container" onClick={() => onQuickView(product)}>
+                {product.tag && (
+                  <span className={`card-ref-badge ${product.tagClass}`}>
+                    {product.tag}
+                  </span>
+                )}
+
+                <img src={product.image} alt={product.name} loading="lazy" />
+
                 <button 
-                  className="quick-view-btn" 
+                  className="card-ref-quick-view" 
                   onClick={(e) => { e.stopPropagation(); onQuickView(product); }}
                   aria-label="Visualizar produto"
                 >
-                  <Eye size={16} /> Espiar
+                  <Eye size={14} /> Espiar
                 </button>
               </div>
 
-              <div className="product-info">
-                <span className="product-cat">{product.categoryLabel}</span>
-                <h3 className="product-title" onClick={() => onQuickView(product)} style={{ cursor: 'pointer' }}>{product.name}</h3>
-                <p className="product-desc">{product.description}</p>
-                
-                <div className="product-footer">
-                  <div className="product-price">
-                    <span className="price-currency">R$</span>
-                    <span className="price-val">{product.price.toFixed(2).replace('.', ',')}</span>
+              {/* Corpo do Card */}
+              <div className="card-ref-body">
+                <h3 className="card-ref-title" onClick={() => onQuickView(product)}>
+                  {product.name}
+                </h3>
+                <p className="card-ref-desc">
+                  {product.description}
+                </p>
+
+                {/* Rodapé com Preço e Botão PEDIR (Vinho/Vermelho) */}
+                <div className="card-ref-footer">
+                  <div className="card-ref-price">
+                    <span className="currency">R$</span>
+                    <span className="val">{product.price.toFixed(2).replace('.', ',')}</span>
                   </div>
 
-                  <button className="add-cart-btn" onClick={() => onAddToCart(product)}>
-                    <ShoppingBag size={16} /> Adicionar
+                  <button className="card-ref-pedir-btn" onClick={() => onAddToCart(product)}>
+                    <MessageCircle size={15} /> PEDIR
                   </button>
                 </div>
               </div>
+
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );
