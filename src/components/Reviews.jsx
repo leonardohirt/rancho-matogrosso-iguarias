@@ -142,30 +142,30 @@ export default function Reviews() {
           <h2 className="section-title">Avaliações de Quem Provou e Aprovou</h2>
           <p className="section-subtitle">Confira a opinião dos nossos clientes sobre nossos morangos e iguarias!</p>
           
-          {/* Botão de Avaliar Principal */}
-          <div style={{ marginTop: '24px' }}>
+          {/* Botão Principal de Avaliação */}
+          <div style={{ marginTop: '20px' }}>
             <button 
-              className="btn btn-primary btn-lg" 
+              className="btn btn-primary" 
               onClick={() => setIsModalOpen(true)}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '12px', fontSize: '0.95rem' }}
             >
-              <PlusCircle size={20} /> Deixar minha Avaliação
+              <PlusCircle size={18} /> Deixar minha Avaliação
             </button>
           </div>
         </div>
 
-        {/* Listagem em Carrossel se houver avaliações */}
+        {/* Listagem em Carrossel */}
         {reviews.length > 0 ? (
-          <div className="reviews-carousel-wrapper" style={{ position: 'relative', marginBottom: '30px' }}>
+          <div className="reviews-carousel-wrapper" style={{ position: 'relative', marginBottom: '20px' }}>
             {maxIndex > 0 && (
-              <div className="carousel-nav-controls" style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginBottom: '16px' }}>
+              <div className="carousel-nav-controls" style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginBottom: '14px' }}>
                 <button 
                   className="carousel-arrow-btn" 
                   onClick={handlePrev} 
                   aria-label="Avaliações anteriores"
                   style={{
-                    width: '42px',
-                    height: '42px',
+                    width: '38px',
+                    height: '38px',
                     borderRadius: '50%',
                     border: '1px solid var(--border-light)',
                     backgroundColor: '#FFF',
@@ -176,7 +176,7 @@ export default function Reviews() {
                     boxShadow: 'var(--shadow-sm)'
                   }}
                 >
-                  <ChevronLeft size={20} />
+                  <ChevronLeft size={18} />
                 </button>
 
                 <button 
@@ -184,8 +184,8 @@ export default function Reviews() {
                   onClick={handleNext} 
                   aria-label="Próximas avaliações"
                   style={{
-                    width: '42px',
-                    height: '42px',
+                    width: '38px',
+                    height: '38px',
                     borderRadius: '50%',
                     border: '1px solid var(--border-light)',
                     backgroundColor: '#FFF',
@@ -196,7 +196,7 @@ export default function Reviews() {
                     boxShadow: 'var(--shadow-sm)'
                   }}
                 >
-                  <ChevronRight size={20} />
+                  <ChevronRight size={18} />
                 </button>
               </div>
             )}
@@ -222,16 +222,16 @@ export default function Reviews() {
             </div>
 
             {maxIndex > 0 && (
-              <div className="carousel-dots" style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '20px' }}>
+              <div className="carousel-dots" style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '16px' }}>
                 {[...Array(maxIndex + 1)].map((_, idx) => (
                   <button 
                     key={idx}
                     onClick={() => setCurrentIndex(idx)}
                     aria-label={`Slide ${idx + 1}`}
                     style={{
-                      width: idx === currentIndex ? '24px' : '10px',
-                      height: '10px',
-                      borderRadius: '10px',
+                      width: idx === currentIndex ? '20px' : '8px',
+                      height: '8px',
+                      borderRadius: '8px',
                       backgroundColor: idx === currentIndex ? 'var(--primary-red)' : '#D1D5DB',
                       border: 'none',
                       cursor: 'pointer',
@@ -243,30 +243,39 @@ export default function Reviews() {
             )}
           </div>
         ) : (
-          <div style={{ textAlign: 'center', padding: '30px 20px', backgroundColor: '#FFF', borderRadius: '16px', border: '1px solid var(--border-light)', marginBottom: '30px' }}>
-            <MessageSquare size={40} style={{ color: 'var(--primary-red)', marginBottom: '10px' }} />
-            <h3 style={{ fontSize: '1.25rem', marginBottom: '6px' }}>Seja o primeiro a avaliar!</h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '16px' }}>Ainda não há comentários cadastrados. Clique no botão acima para deixar seu depoimento.</p>
+          <div style={{ textAlign: 'center', padding: '24px 20px', backgroundColor: '#FFF', borderRadius: '16px', border: '1px solid var(--border-light)', marginBottom: '20px' }}>
+            <MessageSquare size={36} style={{ color: 'var(--primary-red)', marginBottom: '8px' }} />
+            <h3 style={{ fontSize: '1.15rem', marginBottom: '4px' }}>Seja o primeiro a avaliar!</h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Ainda não há comentários cadastrados. Clique no botão acima para deixar seu depoimento.</p>
           </div>
         )}
       </div>
 
-      {/* Modal Popup com o Formulário de Avaliação */}
+      {/* Modal Popup Re-estilizada */}
       {isModalOpen && (
         <div className="modal-backdrop" onClick={() => setIsModalOpen(false)}>
-          <div className="modal-content review-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '560px' }}>
-            <div className="modal-header">
-              <h3><MessageSquare size={22} color="#C62828" /> Deixe sua Avaliação</h3>
-              <button className="modal-close" onClick={() => setIsModalOpen(false)}>
-                <X size={20} />
+          <div className="review-modal-card" onClick={(e) => e.stopPropagation()}>
+            <div className="review-modal-header">
+              <div className="header-title-box">
+                <div className="header-icon-circle">
+                  <MessageSquare size={20} color="#C62828" />
+                </div>
+                <div>
+                  <h3>Deixar minha Avaliação</h3>
+                  <p>Conte como foi sua experiência com nossos morangos</p>
+                </div>
+              </div>
+              <button className="modal-close-round" onClick={() => setIsModalOpen(false)} aria-label="Fechar">
+                <X size={18} />
               </button>
             </div>
 
-            <div className="modal-body" style={{ padding: '24px' }}>
+            <div className="review-modal-body">
               {submitted ? (
-                <div style={{ backgroundColor: '#E8F5E9', color: '#1B5E20', padding: '20px', borderRadius: '12px', fontWeight: '600', textAlign: 'center' }}>
-                  <CheckCircle size={24} style={{ display: 'block', margin: '0 auto 10px auto' }} />
-                  Obrigado! Sua avaliação foi publicada com sucesso!
+                <div className="review-success-state">
+                  <CheckCircle size={32} color="#1B5E20" style={{ display: 'block', margin: '0 auto 12px auto' }} />
+                  <h4>Avaliação enviada com sucesso!</h4>
+                  <p>Muito obrigado por compartilhar sua opinião com a comunidade do Rancho Matogrosso.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit}>
@@ -298,16 +307,15 @@ export default function Reviews() {
                   <div className="form-row">
                     <div className="form-group">
                       <label>Sua Nota *</label>
-                      <div className="star-rating-input">
+                      <div className="star-rating-bar">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <Star 
                             key={star} 
-                            size={24} 
-                            className={`rating-star ${star <= rating ? 'active' : ''}`}
+                            size={26} 
+                            className={`rating-star-btn ${star <= rating ? 'active' : ''}`}
                             fill={star <= rating ? '#F59E0B' : 'none'}
                             color={star <= rating ? '#F59E0B' : '#D1D5DB'}
                             onClick={() => setRating(star)} 
-                            style={{ cursor: 'pointer' }}
                           />
                         ))}
                       </div>
@@ -330,15 +338,15 @@ export default function Reviews() {
                     <label htmlFor="reviewComment">Seu Comentário *</label>
                     <textarea 
                       id="reviewComment" 
-                      rows="4" 
-                      placeholder="Conte como foi provar nossos morangos ou iguarias..." 
+                      rows="3" 
+                      placeholder="Conte sobre o sabor, frescor ou atendimento..." 
                       value={comment} 
                       onChange={(e) => setComment(e.target.value)} 
                       required
                     ></textarea>
                   </div>
 
-                  <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '10px' }}>
+                  <button type="submit" className="review-submit-btn">
                     <Send size={18} /> Publicar Avaliação
                   </button>
                 </form>
