@@ -382,119 +382,171 @@ button, input, select, textarea {
   cursor: pointer;
 }
 
-/* Hero Section Authentic Boutique Editorial */
-.hero-authentic-section {
-  background-color: #FAF7F2;
-  padding: 70px 0 60px 0;
+/* Hero Section Flatlay (Fiel à Foto de Referência Enviada pelo Cliente) */
+.hero-flatlay-section {
   position: relative;
+  background: url('/assets/hero_flatlay_rancho.jpg') center center / cover no-repeat;
+  min-height: 640px;
+  padding: 80px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  text-align: center;
 }
 
-.hero-bg-glow {
+.hero-flatlay-section::before {
+  content: '';
   position: absolute;
-  top: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(198, 40, 40, 0.08) 0%, rgba(250, 247, 242, 0) 70%);
-  pointer-events: none;
+  inset: 0;
+  background: rgba(255, 253, 248, 0.25);
+  backdrop-filter: blur(2px);
   z-index: 1;
 }
 
-.hero-editorial-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background-color: #FFF;
-  border: 1px solid rgba(198, 40, 40, 0.2);
-  padding: 6px 18px;
-  border-radius: 30px;
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  color: var(--primary-red);
-  margin-bottom: 24px;
-  box-shadow: 0 4px 12px rgba(198, 40, 40, 0.06);
+.hero-flatlay-card {
+  background-color: #FAF6EE;
+  border-radius: 20px;
+  max-width: 660px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 48px 40px;
+  text-align: center;
+  box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(198, 40, 40, 0.15);
+  animation: cardPopIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.hero-editorial-headline {
-  font-family: 'DM Serif Display', serif;
-  font-size: 3.8rem;
-  color: #1F2937;
-  line-height: 1.12;
-  margin-bottom: 20px;
-  letter-spacing: -0.5px;
-}
-
-.hero-editorial-headline .italic-accent {
-  font-style: italic;
-  color: var(--primary-red);
-  font-weight: 400;
-}
-
-@media (max-width: 768px) {
-  .hero-editorial-headline {
-    font-size: 2.5rem;
+@keyframes cardPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }
 
-.hero-editorial-subtext {
-  font-size: 1.1rem;
-  color: #556070;
-  max-width: 680px;
-  margin: 0 auto 32px auto;
-  line-height: 1.65;
+.flatlay-card-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--primary-red);
+  text-transform: uppercase;
+  margin-bottom: 16px;
 }
 
-.hero-editorial-actions {
+.flatlay-card-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 3.2rem;
+  color: #2D1A16;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+@media (max-width: 768px) {
+  .hero-flatlay-card {
+    padding: 32px 24px;
+  }
+  .flatlay-card-title {
+    font-size: 2.2rem;
+  }
+}
+
+.flatlay-card-subtitle {
+  font-size: 1rem;
+  color: #6B5B52;
+  line-height: 1.6;
+  max-width: 540px;
+  margin: 0 auto 30px auto;
+}
+
+.flatlay-card-buttons {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 55px;
+  gap: 14px;
+  margin-bottom: 30px;
   flex-wrap: wrap;
 }
 
-.btn-editorial-primary {
-  background-color: var(--primary-red);
+.btn-flatlay-primary {
+  background-color: #681515;
   color: #FFFFFF;
-  padding: 14px 28px;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 0.95rem;
+  padding: 14px 32px;
+  border-radius: 30px;
+  font-weight: 800;
+  font-size: 0.88rem;
+  letter-spacing: 1px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 8px 20px rgba(198, 40, 40, 0.3);
+  box-shadow: 0 8px 22px rgba(104, 21, 21, 0.35);
   transition: all 0.25s ease;
 }
 
-.btn-editorial-primary:hover {
-  background-color: #B71C1C;
+.btn-flatlay-primary:hover {
+  background-color: #4D0E0E;
   transform: translateY(-2px);
-  box-shadow: 0 12px 26px rgba(198, 40, 40, 0.4);
+  box-shadow: 0 12px 28px rgba(104, 21, 21, 0.45);
 }
 
-.btn-editorial-whatsapp {
-  background-color: #1B5E20;
-  color: #FFFFFF;
+.btn-flatlay-secondary {
+  background-color: #FFFFFF;
+  color: #2D1A16;
+  border: 1px solid #D8CFC4;
   padding: 14px 28px;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 0.95rem;
+  border-radius: 30px;
+  font-weight: 800;
+  font-size: 0.88rem;
+  letter-spacing: 1px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 8px 20px rgba(27, 94, 32, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: all 0.25s ease;
 }
 
-.btn-editorial-whatsapp:hover {
-  background-color: #144417;
+.btn-flatlay-secondary:hover {
+  border-color: var(--primary-red);
+  color: var(--primary-red);
   transform: translateY(-2px);
-  box-shadow: 0 12px 26px rgba(27, 94, 32, 0.4);
+}
+
+.flatlay-card-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.footer-item {
+  font-size: 0.825rem;
+  color: #6B5B52;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.footer-item strong {
+  color: #2D1A16;
+}
+
+.footer-dot {
+  color: #C2B6A8;
+}
+
+@media (max-width: 576px) {
+  .footer-dot {
+    display: none;
+  }
 }
 
 /* 3 Cards de Produtos Destaque no Hero */
