@@ -1,95 +1,78 @@
 import React from 'react';
-import { ShoppingCart, MessageCircle, Sparkles, Leaf, Award, Store } from 'lucide-react';
+import { MessageCircle, Star, Sprout, Leaf, Truck } from 'lucide-react';
 
 export default function Hero() {
   return (
-    <section className="hero-classic-section" id="home">
+    <section className="hero-pure-section" id="home">
       <div className="container">
-        
-        {/* Conteúdo Centralizado */}
-        <div className="hero-classic-content text-center">
+        <div className="hero-pure-grid">
           
-          {/* Badges do Topo */}
-          <div className="hero-classic-badges">
-            <span className="classic-badge gold">
-              <Sparkles size={13} /> +8.000 Clientes Satisfeitos
-            </span>
-            <span className="classic-badge green">
-              <Leaf size={13} /> Direto da Colheita
-            </span>
-          </div>
-
-          {/* Título Principal Fiel ao Print */}
-          <h1 className="hero-classic-title">
-            O Melhor Morango <br />
-            <span className="title-red-accent">Do Mundo</span> na Sua Mesa
-          </h1>
-
-          {/* Subtítulo Conciso e Limpo */}
-          <p className="hero-classic-subtitle">
-            Gigante pela própria natureza! Morangos selecionados, frutas congeladas, 
-            geleias 100% naturais e iguarias produzidas com o mais puro cuidado.
-          </p>
-
-          {/* Botões de Ação */}
-          <div className="hero-classic-buttons">
-            <a href="#catalogo" className="btn btn-classic-catalog">
-              <ShoppingCart size={18} /> Ver Catálogo Completo
-            </a>
-            <a href="https://wa.me/554288897545" target="_blank" rel="noreferrer" className="btn btn-classic-whatsapp">
-              <MessageCircle size={18} /> Falar no WhatsApp
-            </a>
-          </div>
-
-        </div>
-
-        {/* Barra Escura Única de Destaques no Rodapé (50% sobreposta à próxima seção) */}
-        <div className="hero-classic-bar-wrapper">
-          <div className="hero-classic-bar">
+          {/* LADO ESQUERDO: Conteúdo e Textos (Fiel à Foto de Referência) */}
+          <div className="hero-pure-content">
             
-            <div className="classic-bar-item">
-              <div className="bar-icon-box gold">
-                <Sparkles size={18} />
-              </div>
-              <div className="bar-item-text">
-                <h4>Morangos Selecionados</h4>
-                <p>Frutas frescas do tamanho médio ao gigante (Red Gold)</p>
-              </div>
+            {/* Top Badge */}
+            <div className="hero-pure-badge">
+              <Star size={13} fill="#991B1B" color="#991B1B" />
+              <span>+8.000 CLIENTES SATISFEITOS</span>
             </div>
 
-            <div className="classic-bar-item">
-              <div className="bar-icon-box green">
-                <Leaf size={18} />
-              </div>
-              <div className="bar-item-text">
-                <h4>Geleias 100% Naturais</h4>
-                <p>Opções tradicionais e 0% açúcar sem conservantes</p>
-              </div>
+            {/* Headline Principal */}
+            <h1 className="hero-pure-title">
+              O Sabor Mais Puro <br />
+              <span className="script-italic-red">da Terra</span> na Sua <br />
+              Mesa
+            </h1>
+
+            {/* Subtítulo Conciso */}
+            <p className="hero-pure-desc">
+              Cultivados com respeito ao ciclo da natureza e colhidos no auge da doçura. Descubra o verdadeiro morango premium do Rancho Matogrosso.
+            </p>
+
+            {/* Botões em Formato Pílula */}
+            <div className="hero-pure-buttons">
+              <a href="#catalogo" className="btn-pure-red">
+                VER CATÁLOGO
+              </a>
+              <a href="https://wa.me/554288897545" target="_blank" rel="noreferrer" className="btn-pure-outline">
+                <MessageCircle size={16} /> FALAR NO WHATSAPP
+              </a>
             </div>
 
-            <div className="classic-bar-item">
-              <div className="bar-icon-box amber">
-                <Award size={18} />
+            {/* Faixa de Ícones no Rodapé */}
+            <div className="hero-pure-features">
+              <div className="feature-pure-item">
+                <Sprout size={16} color="#991B1B" />
+                <span>COLHEITA DIÁRIA</span>
               </div>
-              <div className="bar-item-text">
-                <h4>Licores Especiais</h4>
-                <p>Edições numeradas anualmente (Morango, Butiá, Kinkã)</p>
+              <div className="feature-pure-item">
+                <Leaf size={16} color="#991B1B" />
+                <span>100% ARTESANAL</span>
               </div>
-            </div>
-
-            <div className="classic-bar-item">
-              <div className="bar-icon-box red">
-                <Store size={18} />
-              </div>
-              <div className="bar-item-text">
-                <h4>3 Pontos de Retirada</h4>
-                <p>Loja Centro e Feiras Agroecológicas na Unicentro</p>
+              <div className="feature-pure-item">
+                <Truck size={16} color="#991B1B" />
+                <span>RETIRADA RÁPIDA</span>
               </div>
             </div>
 
           </div>
-        </div>
 
+          {/* LADO DIREITO: Card de Foto Arredondado com os Morangos Selecionados do Rancho */}
+          <div className="hero-pure-visual">
+            <div className="hero-card-frame">
+              <img 
+                src="/assets/morango_red_gold_oficial.jpg" 
+                alt="Colheita de Morangos Selecionados do Rancho Matogrosso" 
+                className="hero-card-img"
+              />
+            </div>
+            
+            {/* Garrafa de Licor Artesanal em Camada Posterior */}
+            <div className="hero-licor-bg-accent">
+              <img src="/assets/licor_butia_red_john.jpg" alt="Licor Artesanal Red John" />
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
   );
