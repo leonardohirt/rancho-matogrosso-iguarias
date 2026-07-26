@@ -43,7 +43,7 @@ export default function Footer() {
 
         <div className="footer-bottom">
           <div className="container footer-bottom-content">
-            <p>&copy; 2026 Rancho Matogrosso Iguarias. Todos os direitos reservados. Desenvolvido por LHM Studio.</p>
+            <p>&copy; 2026 Rancho Matogrosso Iguarias. Todos os direitos reservados. Desenvolvido por lghweb.</p>
             <div className="footer-socials">
               <a href="https://instagram.com/ranchomatogrossoiguarias" target="_blank" rel="noreferrer" aria-label="Instagram">
                 <InstagramIcon size={20} />
