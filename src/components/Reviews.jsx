@@ -140,10 +140,10 @@ export default function Reviews() {
         <div className="section-header text-center">
           <span className="section-tag"><MessageSquare size={16} /> Depoimentos dos Clientes</span>
           <h2 className="section-title">Avaliações de Quem Provou e Aprovou</h2>
-          <p className="section-subtitle">Confira a opinião dos nossos clientes sobre nossos morangos e iguarias!</p>
+          <p className="section-subtitle" style={{ marginBottom: '16px' }}>Confira a opinião dos nossos clientes sobre nossos morangos e iguarias!</p>
           
           {/* Botão Principal de Avaliação */}
-          <div style={{ marginTop: '20px' }}>
+          <div style={{ marginTop: '16px', marginBottom: '48px' }}>
             <button 
               className="btn btn-primary" 
               onClick={() => setIsModalOpen(true)}

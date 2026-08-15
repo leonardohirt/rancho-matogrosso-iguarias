@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { products, categories } from '../data/products';
-import { MessageCircle, Eye } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 
 export default function Catalog({ onAddToCart, onQuickView }) {
   const [activeCategory, setActiveCategory] = useState('morangos');
@@ -38,7 +38,7 @@ export default function Catalog({ onAddToCart, onQuickView }) {
           {filteredProducts.map(product => (
             <div key={product.id} className="catalog-ref-card">
               
-              {/* Imagem Quadrada (1:1) com Badge e Botão Espiar */}
+              {/* Imagem Quadrada (1:1) com Badge */}
               <div className="card-ref-img-container" onClick={() => onQuickView(product)}>
                 {product.tag && (
                   <span className={`card-ref-badge ${product.tagClass}`}>
@@ -47,14 +47,6 @@ export default function Catalog({ onAddToCart, onQuickView }) {
                 )}
 
                 <img src={product.image} alt={product.name} loading="lazy" />
-
-                <button 
-                  className="card-ref-quick-view" 
-                  onClick={(e) => { e.stopPropagation(); onQuickView(product); }}
-                  aria-label="Visualizar produto"
-                >
-                  <Eye size={14} /> Espiar
-                </button>
               </div>
 
               {/* Corpo do Card */}

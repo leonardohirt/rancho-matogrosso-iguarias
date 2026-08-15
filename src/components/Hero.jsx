@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageCircle, Star, Sprout, Leaf, Truck } from 'lucide-react';
+import { MessageCircle, Sprout, Leaf, Truck } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -9,12 +9,6 @@ export default function Hero() {
           
           {/* LADO ESQUERDO: Conteúdo e Textos (Fiel à Foto de Referência) */}
           <div className="hero-pure-content">
-            
-            {/* Top Badge */}
-            <div className="hero-pure-badge">
-              <Star size={13} fill="#991B1B" color="#991B1B" />
-              <span>+8.000 CLIENTES SATISFEITOS</span>
-            </div>
 
             {/* Headline Principal */}
             <h1 className="hero-pure-title">
