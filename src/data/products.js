@@ -1,5 +1,6 @@
 export const categories = [
   { id: 'morangos', label: 'MORANGOS' },
+  { id: 'casa-luchese', label: 'CASA LUCHESE' },
   { id: 'kokedama', label: 'KOKEDAMA' },
   { id: 'geleias-tradicionais', label: 'GELEIAS TRADICIONAIS' },
   { id: 'geleias-zero', label: 'GELEIAS ZERO AÇÚCAR' },
@@ -76,6 +77,173 @@ export const products = [
     tagClass: 'green'
   },
 
+  // --- CASA LUCHESE ---
+  {
+    id: 'casa-luchese-figo-nozes-260g',
+    name: 'Doce de Figo com Nozes 260g',
+    category: 'casa-luchese',
+    categoryLabel: 'CASA LUCHESE',
+    price: 24.90,
+    description: 'Doce artesanal de figo com pedaços da fruta e nozes selecionadas.',
+    image: '/assets/luchese_figo_nozes.jpg',
+    tag: 'CASA LUCHESE',
+    tagClass: 'gold'
+  },
+  {
+    id: 'casa-luchese-cebola-bacon-250g',
+    name: 'Cebola Caramelizada com Bacon 250g',
+    category: 'casa-luchese',
+    categoryLabel: 'CASA LUCHESE',
+    price: 25.90,
+    description: 'Harmoniza perfeitamente com torradas, sanduíches e hambúrgueres.',
+    image: '/assets/luchese_cebola_bacon.jpg',
+    tag: 'CASA LUCHESE',
+    tagClass: 'gold'
+  },
+  {
+    id: 'casa-luchese-abacaxi-pimenta-260g',
+    name: 'Geleia de Abacaxi com Pimenta 260g',
+    category: 'casa-luchese',
+    categoryLabel: 'CASA LUCHESE',
+    price: 22.90,
+    description: 'Agridoce suave e picante que harmoniza com carnes e queijos finos.',
+    image: '/assets/luchese_abacaxi_pimenta.jpg',
+    tag: 'CASA LUCHESE',
+    tagClass: 'gold'
+  },
+  {
+    id: 'casa-luchese-bergamota-260g',
+    name: 'Geleia de Bergamota 260g',
+    category: 'casa-luchese',
+    categoryLabel: 'CASA LUCHESE',
+    price: 24.90,
+    description: 'Geleia cítrica artesanal com pedaços reais da fruta.',
+    image: '/assets/luchese_bergamota.jpg',
+    tag: 'CASA LUCHESE',
+    tagClass: 'gold'
+  },
+  {
+    id: 'casa-luchese-cebola-limao-siciliano-250g',
+    name: 'Cebola Caramelizada com Limão Siciliano 250g',
+    category: 'casa-luchese',
+    categoryLabel: 'CASA LUCHESE',
+    price: 25.90,
+    description: 'Cebola caramelizada lentamente com toque cítrico de raspas de limão siciliano.',
+    image: '/assets/luchese_cebola_limao_siciliano.jpg',
+    tag: 'CASA LUCHESE',
+    tagClass: 'gold'
+  },
+  {
+    id: 'casa-luchese-cebola-apimentada-250g',
+    name: 'Cebola Caramelizada Apimentada 250g',
+    category: 'casa-luchese',
+    categoryLabel: 'CASA LUCHESE',
+    price: 25.90,
+    description: 'Harmonização perfeita para carnes assadas e hambúrgueres artesanais.',
+    image: '/assets/luchese_cebola_apimentada.jpg',
+    tag: 'CASA LUCHESE',
+    tagClass: 'gold'
+  },
+  {
+    id: 'casa-luchese-limao-siciliano-260g',
+    name: 'Geleia de Limão Siciliano Premium 260g',
+    category: 'casa-luchese',
+    categoryLabel: 'CASA LUCHESE',
+    price: 24.90,
+    description: 'Geleia artesanal com raspas de limão siciliano e aroma inconfundível.',
+    image: '/assets/luchese_limao_siciliano.jpg',
+    tag: 'CASA LUCHESE',
+    tagClass: 'gold'
+  },
+  {
+    id: 'casa-luchese-pesto-210g',
+    name: 'Molho Pesto 210g',
+    category: 'casa-luchese',
+    categoryLabel: 'CASA LUCHESE',
+    price: 39.90,
+    description: 'Molho Pesto tradicional artesanal, feito com manjericão fresco e nozes, ideal para massas.',
+    image: '/assets/luchese_pesto.jpg',
+    tag: 'CASA LUCHESE',
+    tagClass: 'gold'
+  },
+  {
+    id: 'casa-luchese-goiaba-260g',
+    name: 'Geleia de Goiaba Tradicional 260g',
+    category: 'casa-luchese',
+    categoryLabel: 'CASA LUCHESE',
+    price: 21.90,
+    description: 'Sabor clássico colonial preparado com goiabas selecionadas.',
+    image: '/assets/luchese_goiaba.jpg',
+    tag: 'CASA LUCHESE',
+    tagClass: 'gold'
+  },
+  {
+    id: 'casa-luchese-frutas-tropicais-250g',
+    name: 'Geleia de Frutas Tropicais Premium 250g',
+    category: 'casa-luchese',
+    categoryLabel: 'CASA LUCHESE',
+    price: 24.90,
+    description: 'Combinação exótica e saborosa com pedaços de frutas tropicais.',
+    image: '/assets/luchese_frutas_tropicais.jpg',
+    tag: 'CASA LUCHESE',
+    tagClass: 'gold'
+  },
+  {
+    id: 'casa-luchese-frutas-vermelhas-cabernet-260g',
+    name: 'Geleia de Frutas Vermelhas ao Vinho Cabernet 260g',
+    category: 'casa-luchese',
+    categoryLabel: 'CASA LUCHESE',
+    price: 24.90,
+    description: 'Frutas vermelhas selecionadas com redução especial de Vinho Cabernet.',
+    image: '/assets/luchese_frutas_vermelhas_cabernet.jpg',
+    tag: 'CASA LUCHESE',
+    tagClass: 'gold'
+  },
+  {
+    id: 'casa-luchese-damasco-250g',
+    name: 'Geleia de Damasco Premium 250g',
+    category: 'casa-luchese',
+    categoryLabel: 'CASA LUCHESE',
+    price: 32.90,
+    description: 'Geleia nobre com pedaços graúdos de damasco artesanal.',
+    image: '/assets/luchese_damasco.jpg',
+    tag: 'CASA LUCHESE',
+    tagClass: 'gold'
+  },
+  {
+    id: 'casa-luchese-cebola-tradicional-250g',
+    name: 'Cebola Caramelizada Tradicional 250g',
+    category: 'casa-luchese',
+    categoryLabel: 'CASA LUCHESE',
+    price: 25.90,
+    description: 'Receita original caramelizada lentamente sem corantes nem conservantes.',
+    image: '/assets/luchese_cebola_tradicional.jpg',
+    tag: 'CASA LUCHESE',
+    tagClass: 'gold'
+  },
+  {
+    id: 'casa-luchese-pimenta-260g',
+    name: 'Geleia de Pimenta 260g',
+    category: 'casa-luchese',
+    categoryLabel: 'CASA LUCHESE',
+    price: 22.90,
+    description: 'Geleia de pimenta agridoce marcante, perfeita acompanhante de queijos e assados.',
+    image: '/assets/luchese_pimenta.jpg',
+    tag: 'CASA LUCHESE',
+    tagClass: 'gold'
+  },
+  {
+    id: 'casa-luchese-antepasto-mediterraneo-210g',
+    name: 'Antepasto Mediterrâneo 210g',
+    category: 'casa-luchese',
+    categoryLabel: 'CASA LUCHESE',
+    price: 28.90,
+    description: 'Antepasto rústico e saboroso, especial para acompanhar torradinhas e pães.',
+    image: '/assets/luchese_antepasto_mediterraneo.jpg',
+    tag: 'CASA LUCHESE',
+    tagClass: 'gold'
+  },
+
   // --- KOKEDAMA ---
   {
     id: 'kokedama-morango',
@@ -131,7 +299,7 @@ export const products = [
     category: 'geleias-zero',
     categoryLabel: 'GELEIAS ZERO AÇÚCAR',
     price: 25.00,
-    description: 'Zero adição de açúcares! Adoçada naturalmente com suco concentrado de maçã.',
+    description: 'Zero adição de açúcares! Adoçada naturally com suco concentrado de maçã.',
     image: '/assets/geleia_artesanal_1784581780896.jpg',
     tag: '0% AÇÚCAR (SAUDÁVEL)',
     tagClass: 'green'
