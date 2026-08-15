@@ -2214,9 +2214,12 @@ button, input, select, textarea {
 }
 
 @media (max-width: 768px) {
-  .top-bar-content {
-    justify-content: center;
-    text-align: center;
+  .top-bar {
+    display: none;
+  }
+
+  .brand-text {
+    display: none;
   }
   
   .main-nav {
