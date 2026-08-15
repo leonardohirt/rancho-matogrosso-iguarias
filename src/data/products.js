@@ -408,3 +408,37 @@ export const products = [
     tagClass: 'green'
   }
 ];
+
+const STORAGE_KEY = 'rancho_products_custom_db_v2';
+
+export const getStoredProducts = () => {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.warn('Erro ao ler produtos do localStorage:', e);
+  }
+  return products;
+};
+
+export const saveStoredProducts = (newProducts) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(newProducts));
+  } catch (e) {
+    console.error('Erro ao salvar produtos no localStorage:', e);
+  }
+};
+
+export const resetProductsToDefault = () => {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch (e) {
+    console.error('Erro ao resetar produtos:', e);
+  }
+  return products;
+};

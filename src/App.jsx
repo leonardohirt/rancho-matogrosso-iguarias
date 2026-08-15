@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Catalog from './components/Catalog';
@@ -9,11 +9,56 @@ import Locations from './components/Locations';
 import CartDrawer from './components/CartDrawer';
 import ProductModal from './components/ProductModal';
 import Footer from './components/Footer';
+import AdminPanel from './components/AdminPanel';
+import { getStoredProducts, saveStoredProducts, resetProductsToDefault } from './data/products';
 
 export default function App() {
+  const [productsList, setProductsList] = useState(getStoredProducts);
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  // Rota Oculta de Administração (/adm ou #adm)
+  const [isAdminRoute, setIsAdminRoute] = useState(false);
+
+  useEffect(() => {
+    const checkAdminRoute = () => {
+      const path = window.location.pathname.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
+      const search = window.location.search.toLowerCase();
+      
+      const isAdm = path.includes('/adm') || hash.includes('adm') || search.includes('adm');
+      setIsAdminRoute(isAdm);
+    };
+
+    checkAdminRoute();
+    window.addEventListener('popstate', checkAdminRoute);
+    window.addEventListener('hashchange', checkAdminRoute);
+
+    return () => {
+      window.removeEventListener('popstate', checkAdminRoute);
+      window.removeEventListener('hashchange', checkAdminRoute);
+    };
+  }, []);
+
+  const handleUpdateProducts = (newList) => {
+    setProductsList(newList);
+    saveStoredProducts(newList);
+  };
+
+  const handleResetDefault = () => {
+    const defaultList = resetProductsToDefault();
+    setProductsList(defaultList);
+  };
+
+  const handleCloseAdmin = () => {
+    setIsAdminRoute(false);
+    if (window.location.pathname.toLowerCase().includes('/adm')) {
+      window.history.pushState({}, '', '/');
+    } else if (window.location.hash.toLowerCase().includes('adm')) {
+      window.history.pushState({}, '', window.location.pathname);
+    }
+  };
 
   const handleAddToCart = (product) => {
     setCart(prev => {
@@ -46,11 +91,27 @@ export default function App() {
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
+  // Se a URL for /adm, exibe o Painel de Administração Oculto
+  if (isAdminRoute) {
+    return (
+      <AdminPanel 
+        products={productsList}
+        onUpdateProducts={handleUpdateProducts}
+        onResetDefault={handleResetDefault}
+        onCloseAdmin={handleCloseAdmin}
+      />
+    );
+  }
+
   return (
     <div className="app-root">
       <Header cartCount={cartCount} onOpenCart={() => setIsCartOpen(true)} />
       <Hero />
-      <Catalog onAddToCart={handleAddToCart} onOpenModal={(product) => setSelectedProduct(product)} />
+      <Catalog 
+        products={productsList} 
+        onAddToCart={handleAddToCart} 
+        onQuickView={(product) => setSelectedProduct(product)} 
+      />
       <About />
       <Reviews />
       <Gallery />

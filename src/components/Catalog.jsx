@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { products, categories } from '../data/products';
 import { MessageCircle } from 'lucide-react';
 
-export default function Catalog({ onAddToCart, onQuickView }) {
+export default function Catalog({ products: propProducts, onAddToCart, onQuickView }) {
   const [activeCategory, setActiveCategory] = useState('morangos');
 
-  const filteredProducts = products.filter(product => product.category === activeCategory);
+  const allProducts = propProducts || products;
+  const filteredProducts = allProducts.filter(product => product.category === activeCategory);
 
   return (
     <section className="catalog-section" id="catalogo">
