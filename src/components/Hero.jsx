@@ -1,18 +1,49 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { MessageCircle, Sprout, Leaf, Truck } from 'lucide-react';
 
 export default function Hero() {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      // Garante muting a nível de propriedade DOM para Safari iOS e Chrome Android
+      video.defaultMuted = true;
+      video.muted = true;
+      
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Se o celular bloquear o autoplay (ex: economia de bateria), inicia ao tocar na tela
+          const handleTouchPlay = () => {
+            if (video) {
+              video.play().catch(() => {});
+            }
+            window.removeEventListener('touchstart', handleTouchPlay);
+            window.removeEventListener('scroll', handleTouchPlay);
+          };
+          window.addEventListener('touchstart', handleTouchPlay, { passive: true });
+          window.addEventListener('scroll', handleTouchPlay, { passive: true });
+        });
+      }
+    }
+  }, []);
+
   return (
     <section className="hero-pure-section" id="home">
       
-      {/* Vídeo de Fundo em Alta Qualidade (Horizontal) */}
+      {/* Vídeo de Fundo em Alta Qualidade (Mobile Autoplay Compatible) */}
       <div className="hero-video-container">
         <video 
+          ref={videoRef}
           className="hero-bg-video" 
           autoPlay 
           loop 
           muted 
           playsInline 
+          webkit-playsinline="true"
+          preload="auto"
+          poster="/assets/estufa_morangos_bg.jpg"
           src="/assets/morango-video.mp4"
         />
         <div className="hero-video-overlay"></div>
