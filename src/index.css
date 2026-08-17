@@ -415,13 +415,13 @@ button, input, select, textarea {
   left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  filter: brightness(0.72) contrast(1.05);
+  filter: brightness(0.88) contrast(1.02);
 }
 
 .hero-video-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(15, 12, 10, 0.65) 0%, rgba(20, 15, 12, 0.82) 100%);
+  background: linear-gradient(180deg, rgba(15, 12, 10, 0.38) 0%, rgba(20, 15, 12, 0.55) 100%);
   z-index: 1;
 }
 
@@ -441,7 +441,7 @@ button, input, select, textarea {
   font-size: 3.8rem;
   color: #FFFFFF;
   line-height: 1.12;
-  margin-bottom: 22px;
+  margin-bottom: 16px;
   letter-spacing: -0.5px;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
 }
@@ -463,12 +463,14 @@ button, input, select, textarea {
 }
 
 .hero-pure-desc {
-  font-size: 1.1rem;
-  color: #F3F4F6;
-  line-height: 1.65;
-  margin-bottom: 36px;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 1.4;
+  margin-bottom: 32px;
   max-width: 620px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
 }
 
 /* Botões em Formato Pílula */

@@ -16,7 +16,6 @@ export default function Hero() {
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {
-          // Fallback: Se o celular ou modo de economia de bateria bloquear o autoplay, inicia no toque/scroll
           const handleTouchPlay = () => {
             if (video) {
               video.play().catch(() => {});
@@ -34,7 +33,7 @@ export default function Hero() {
   return (
     <section className="hero-pure-section" id="home">
       
-      {/* Vídeo de Fundo em Alta Qualidade com Fallback Suave de Toque */}
+      {/* Vídeo de Fundo com Maior Visibilidade */}
       <div className="hero-video-container">
         <video 
           ref={videoRef}
@@ -58,13 +57,12 @@ export default function Hero() {
 
           {/* Headline Principal */}
           <h1 className="hero-pure-title">
-            O Sabor Mais Puro <br />
-            <span className="script-italic-red">da Terra</span> na Sua Mesa
+            Rancho <span className="script-italic-red">Matogrosso</span>
           </h1>
 
           {/* Subtítulo Conciso */}
           <p className="hero-pure-desc">
-            Cultivados com respeito ao ciclo da natureza e colhidos no auge da doçura. Descubra o verdadeiro morango premium do Rancho Matogrosso.
+            Fruticultura Inteligente
           </p>
 
           {/* Botões em Formato Pílula */}
