@@ -79,14 +79,7 @@ export default function AdminPanel({ products, dbStatus, onUpdateProducts, onRes
         setLoginError(data.error || 'Usuário ou senha incorretos.');
       }
     } catch (err) {
-      if ((username.trim().toLowerCase() === 'admin' || username.trim().toLowerCase() === 'adm') && 
-          (password === 'rancho123' || password === 'admin123')) {
-        setIsAuthenticated(true);
-        sessionStorage.setItem('rancho_admin_auth', 'true');
-        showToast('Bem-vindo ao Painel de Administração!');
-      } else {
-        setLoginError('Usuário ou senha incorretos.');
-      }
+      setLoginError('Erro ao conectar com o servidor. Tente novamente.');
     } finally {
       setIsSubmittingLogin(false);
     }

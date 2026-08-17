@@ -1,11 +1,18 @@
 import { createClient } from '@supabase/supabase-js';
 
-const SUPABASE_URL = process.env.SUPABASE_URL || 'https://abdwsujajtnkpnorufin.supabase.co';
-const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFiZHdzdWphanRua3Bub3J1ZmluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ1ODgxMDUsImV4cCI6MjEwMDE2NDEwNX0.03PNa6F6qlHsruiywm-EG85rFbb5IW0kV0PZ_3jF0xI';
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY;
 
 export default async function handler(req, res) {
+  if (!SUPABASE_URL || !SUPABASE_KEY) {
+    return res.status(500).json({ 
+      success: false, 
+      error: 'Servidor mal configurado: Variáveis SUPABASE_URL e SUPABASE_ANON_KEY ausentes no servidor.' 
+    });
+  }
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
   if (req.method === 'GET') {
     try {
       const { data, error } = await supabase

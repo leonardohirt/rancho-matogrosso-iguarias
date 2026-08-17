@@ -7,18 +7,22 @@ export default async function handler(req, res) {
   try {
     const { username, password } = req.body || {};
 
-    // Variáveis de ambiente configuradas no painel da Vercel (sem exposição no cliente)
-    const adminUser = process.env.ADMIN_USERNAME || 'admin';
-    const adminPass = process.env.ADMIN_PASSWORD || 'rancho123';
+    // Variáveis de ambiente da Vercel sem qualquer fallback hardcoded
+    const adminUser = process.env.ADMIN_USERNAME;
+    const adminPass = process.env.ADMIN_PASSWORD;
+
+    if (!adminUser || !adminPass) {
+      return res.status(500).json({ 
+        success: false, 
+        error: 'Servidor mal configurado: Variáveis ADMIN_USERNAME e ADMIN_PASSWORD não encontradas.' 
+      });
+    }
 
     const inputUser = (username || '').trim().toLowerCase();
     const inputPass = (password || '').trim();
 
-    // Comparação segura realizada exclusivamente no servidor Vercel
-    if (
-      (inputUser === adminUser.toLowerCase() || inputUser === 'adm') &&
-      (inputPass === adminPass || inputPass === 'admin123')
-    ) {
+    // Verificação estrita contra variáveis de ambiente do servidor
+    if (inputUser === adminUser.toLowerCase() && inputPass === adminPass) {
       return res.status(200).json({ 
         success: true, 
         message: 'Autenticado com sucesso.',
