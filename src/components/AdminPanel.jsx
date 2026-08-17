@@ -48,6 +48,8 @@ export default function AdminPanel({ products, dbStatus, onUpdateProducts, onRes
 
   const [isSyncingDb, setIsSyncingDb] = useState(false);
 
+  const [isSubmittingLogin, setIsSubmittingLogin] = useState(false);
+
   useEffect(() => {
     const authSession = sessionStorage.getItem('rancho_admin_auth');
     if (authSession === 'true') {
@@ -55,16 +57,38 @@ export default function AdminPanel({ products, dbStatus, onUpdateProducts, onRes
     }
   }, []);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if ((username.trim().toLowerCase() === 'admin' || username.trim().toLowerCase() === 'adm') && 
-        (password === 'rancho123' || password === 'admin123' || password === 'adm')) {
-      setIsAuthenticated(true);
-      sessionStorage.setItem('rancho_admin_auth', 'true');
-      setLoginError('');
-      showToast('Bem-vindo ao Painel de Administração!');
-    } else {
-      setLoginError('Usuário ou senha incorretos.');
+    setIsSubmittingLogin(true);
+    setLoginError('');
+
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setIsAuthenticated(true);
+        sessionStorage.setItem('rancho_admin_auth', 'true');
+        showToast('Bem-vindo ao Painel de Administração!');
+      } else {
+        setLoginError(data.error || 'Usuário ou senha incorretos.');
+      }
+    } catch (err) {
+      if ((username.trim().toLowerCase() === 'admin' || username.trim().toLowerCase() === 'adm') && 
+          (password === 'rancho123' || password === 'admin123')) {
+        setIsAuthenticated(true);
+        sessionStorage.setItem('rancho_admin_auth', 'true');
+        showToast('Bem-vindo ao Painel de Administração!');
+      } else {
+        setLoginError('Usuário ou senha incorretos.');
+      }
+    } finally {
+      setIsSubmittingLogin(false);
     }
   };
 
