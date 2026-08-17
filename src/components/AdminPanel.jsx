@@ -64,7 +64,7 @@ export default function AdminPanel({ products, dbStatus, onUpdateProducts, onRes
       setLoginError('');
       showToast('Bem-vindo ao Painel de Administração!');
     } else {
-      setLoginError('Usuário ou senha incorretos. Tente usuário: admin e senha: rancho123');
+      setLoginError('Usuário ou senha incorretos.');
     }
   };
 
@@ -244,7 +244,6 @@ export default function AdminPanel({ products, dbStatus, onUpdateProducts, onRes
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <span className="help-text">Dica de Acesso: <strong>admin</strong> / <strong>rancho123</strong></span>
             </div>
 
             <div className="login-actions">
