@@ -382,14 +382,44 @@ button, input, select, textarea {
   cursor: pointer;
 }
 
-/* Hero Section Pure (Fundo de Estufa Ofuscado e Texto Centralizado) */
+/* Hero Section Pure (Vídeo de Fundo na Horizontal com Sombreamento Ofuscado) */
 .hero-pure-section {
   position: relative;
-  background: linear-gradient(180deg, rgba(15, 12, 10, 0.72) 0%, rgba(20, 15, 12, 0.85) 100%), url('/assets/estufa_morangos_bg.jpg') center center / cover no-repeat;
+  min-height: 540px;
   padding: 100px 0 90px 0;
   color: #FFFFFF;
   text-align: center;
   overflow: hidden;
+  background-color: #120A0A;
+}
+
+.hero-video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  filter: brightness(0.7) contrast(1.05);
+}
+
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 12, 10, 0.65) 0%, rgba(20, 15, 12, 0.82) 100%);
+  z-index: 1;
 }
 
 .hero-pure-centered-content {

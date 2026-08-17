@@ -4,9 +4,22 @@ import { MessageCircle, Sprout, Leaf, Truck } from 'lucide-react';
 export default function Hero() {
   return (
     <section className="hero-pure-section" id="home">
+      
+      {/* Vídeo de Fundo em Alta Qualidade (Horizontal) */}
+      <div className="hero-video-container">
+        <video 
+          className="hero-bg-video" 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          src="/assets/morango-video.mp4"
+        />
+        <div className="hero-video-overlay"></div>
+      </div>
+
       <div className="container">
-        
-        {/* Conteúdo Centralizado sobre a Foto de Fundo da Estufa */}
+        {/* Conteúdo Centralizado sobre o Vídeo de Fundo */}
         <div className="hero-pure-centered-content">
 
           {/* Headline Principal */}
@@ -47,8 +60,8 @@ export default function Hero() {
           </div>
 
         </div>
-
       </div>
+
     </section>
   );
 }
