@@ -11,7 +11,7 @@ import ProductModal from './components/ProductModal';
 import Footer from './components/Footer';
 import AdminPanel from './components/AdminPanel';
 import { getStoredProducts, saveStoredProducts, resetProductsToDefault } from './data/products';
-import { fetchProductsFromDb, syncAllProductsToDb } from './lib/productsService';
+import { fetchProductsFromDb, syncAllProductsToDb, resetPricesAndDescriptionsOnly } from './lib/productsService';
 
 export default function App() {
   const [productsList, setProductsList] = useState(getStoredProducts);
@@ -73,9 +73,8 @@ export default function App() {
   };
 
   const handleResetDefault = () => {
-    const defaultList = resetProductsToDefault();
-    setProductsList(defaultList);
-    syncAllProductsToDb(defaultList);
+    const resetList = resetPricesAndDescriptionsOnly(productsList);
+    setProductsList(resetList);
   };
 
   const handleCloseAdmin = () => {

@@ -1,7 +1,8 @@
 import { supabase } from './supabase';
 import { products as defaultProducts } from '../data/products';
 
-const LOCAL_STORAGE_KEY = 'rancho_products_custom_db_v3';
+const LOCAL_STORAGE_KEY = 'rancho_products_custom_db_v4';
+const DELETED_IDS_KEY = 'rancho_deleted_product_ids_v4';
 
 export const PRODUCTS_TABLE_SQL = `
 -- Script de Criação da Tabela de Produtos no Supabase
@@ -30,9 +31,42 @@ CREATE POLICY "Permitir tudo para todos" ON products FOR ALL USING (true) WITH C
 `;
 
 /**
- * Busca os produtos do Supabase (com fallback para localStorage e dataset padrão)
+ * Retorna os IDs dos produtos excluídos permanentemente pelo usuário
+ */
+function getDeletedProductIds() {
+  try {
+    const stored = localStorage.getItem(DELETED_IDS_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed)) return parsed;
+    }
+  } catch (e) {
+    console.warn('Erro ao ler IDs deletados:', e);
+  }
+  return [];
+}
+
+/**
+ * Adiciona um ID à lista de produtos excluídos
+ */
+function addDeletedProductId(id) {
+  try {
+    const deleted = getDeletedProductIds();
+    if (!deleted.includes(id)) {
+      const updated = [...deleted, id];
+      localStorage.setItem(DELETED_IDS_KEY, JSON.stringify(updated));
+    }
+  } catch (e) {
+    console.error('Erro ao salvar ID deletado:', e);
+  }
+}
+
+/**
+ * Busca os produtos do Supabase (com fallback para localStorage e dataset padrão, filtrando os deletados)
  */
 export async function fetchProductsFromDb() {
+  const deletedIds = getDeletedProductIds();
+
   try {
     const { data, error } = await supabase
       .from('products')
@@ -40,35 +74,38 @@ export async function fetchProductsFromDb() {
       .order('id', { ascending: true });
 
     if (error) {
-      console.warn('Tabela Supabase "products" ainda não existe ou indisponível:', error.message);
-      return { products: getLocalProducts(), isDbAvailable: false, error: error.message };
+      console.warn('Tabela Supabase "products" indisponível:', error.message);
+      const local = getLocalProducts().filter(p => !deletedIds.includes(p.id));
+      return { products: local, isDbAvailable: false, error: error.message };
     }
 
     if (data && data.length > 0) {
-      // Mapeia colunas do Supabase para formato do App
-      const formatted = data.map(row => ({
-        id: row.id,
-        name: row.name,
-        category: row.category,
-        categoryLabel: row.category_label || row.categoryLabel || row.category,
-        originalPrice: row.original_price ? parseFloat(row.original_price) : null,
-        price: parseFloat(row.price),
-        description: row.description || '',
-        image: row.image || '/assets/morango_premium_colheita.jpg',
-        tag: row.tag || '',
-        tagClass: row.tag_class || row.tagClass || ''
-      }));
+      // Mapeia colunas do Supabase e filtra deletados
+      const formatted = data
+        .filter(row => !deletedIds.includes(row.id))
+        .map(row => ({
+          id: row.id,
+          name: row.name,
+          category: row.category,
+          categoryLabel: row.category_label || row.categoryLabel || row.category,
+          originalPrice: row.original_price ? parseFloat(row.original_price) : null,
+          price: parseFloat(row.price),
+          description: row.description || '',
+          image: row.image || '/assets/morango_premium_colheita.jpg',
+          tag: row.tag || '',
+          tagClass: row.tag_class || row.tagClass || ''
+        }));
 
-      // Atualiza cache local
       saveLocalProducts(formatted);
       return { products: formatted, isDbAvailable: true, error: null };
     } else {
-      // Tabela vazia no Supabase: Retorna local mas indica que o DB está disponível
-      return { products: getLocalProducts(), isDbAvailable: true, isDbEmpty: true, error: null };
+      const local = getLocalProducts().filter(p => !deletedIds.includes(p.id));
+      return { products: local, isDbAvailable: true, isDbEmpty: true, error: null };
     }
   } catch (err) {
     console.error('Erro na conexão com Supabase:', err);
-    return { products: getLocalProducts(), isDbAvailable: false, error: err.message };
+    const local = getLocalProducts().filter(p => !deletedIds.includes(p.id));
+    return { products: local, isDbAvailable: false, error: err.message };
   }
 }
 
@@ -76,7 +113,6 @@ export async function fetchProductsFromDb() {
  * Salva um único produto no Supabase e atualiza o localStorage
  */
 export async function saveProductToDb(product, allProducts) {
-  // Salva no cache local imediatamente
   const updatedAll = allProducts.map(p => p.id === product.id ? product : p);
   const existsInAll = allProducts.some(p => p.id === product.id);
   const finalList = existsInAll ? updatedAll : [product, ...allProducts];
@@ -110,30 +146,60 @@ export async function saveProductToDb(product, allProducts) {
 }
 
 /**
- * Deleta um produto do Supabase e do localStorage
+ * Deleta um produto permanentemente do Supabase, do localStorage e grava o ID como deletado
  */
 export async function deleteProductFromDb(productId, allProducts) {
+  addDeletedProductId(productId);
   const filtered = allProducts.filter(p => p.id !== productId);
   saveLocalProducts(filtered);
 
   try {
     const { error } = await supabase.from('products').delete().eq('id', productId);
     if (error) {
-      console.warn('Erro ao deletar do Supabase:', error.message);
-      return { success: false, error: error.message, products: filtered };
+      console.warn('Aviso ao deletar linha do Supabase:', error.message);
     }
-    return { success: true, products: filtered };
   } catch (err) {
-    return { success: false, error: err.message, products: filtered };
+    console.error('Erro ao deletar no Supabase:', err);
   }
+
+  return { success: true, products: filtered };
 }
 
 /**
- * Sincroniza em lote todos os produtos locais com o Supabase (1-Click Upload)
+ * Restaura preços e descrições originais apenas para os produtos ativos (NÃO traz de volta itens apagados)
+ */
+export function resetPricesAndDescriptionsOnly(currentProductsList) {
+  const deletedIds = getDeletedProductIds();
+
+  const resetList = currentProductsList
+    .filter(p => !deletedIds.includes(p.id))
+    .map(currentProd => {
+      const defaultMatch = defaultProducts.find(d => d.id === currentProd.id);
+      if (defaultMatch) {
+        return {
+          ...currentProd,
+          price: defaultMatch.price,
+          originalPrice: defaultMatch.originalPrice || null,
+          description: defaultMatch.description
+        };
+      }
+      return currentProd;
+    });
+
+  saveLocalProducts(resetList);
+  syncAllProductsToDb(resetList);
+  return resetList;
+}
+
+/**
+ * Sincroniza em lote todos os produtos ativos com o Supabase
  */
 export async function syncAllProductsToDb(productsList) {
+  const deletedIds = getDeletedProductIds();
+  const activeProducts = productsList.filter(p => !deletedIds.includes(p.id));
+
   try {
-    const rows = productsList.map(product => ({
+    const rows = activeProducts.map(product => ({
       id: product.id,
       name: product.name,
       category: product.category,
@@ -152,7 +218,7 @@ export async function syncAllProductsToDb(productsList) {
       return { success: false, error: error.message };
     }
 
-    saveLocalProducts(productsList);
+    saveLocalProducts(activeProducts);
     return { success: true, count: rows.length };
   } catch (err) {
     return { success: false, error: err.message };
@@ -161,16 +227,19 @@ export async function syncAllProductsToDb(productsList) {
 
 // Helpers de cache local
 function getLocalProducts() {
+  const deletedIds = getDeletedProductIds();
   try {
     const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (stored) {
       const parsed = JSON.parse(stored);
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed.filter(p => !deletedIds.includes(p.id));
+      }
     }
   } catch (e) {
     console.warn(e);
   }
-  return defaultProducts;
+  return defaultProducts.filter(p => !deletedIds.includes(p.id));
 }
 
 function saveLocalProducts(list) {

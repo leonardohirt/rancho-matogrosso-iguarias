@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { categories } from '../data/products';
-import { PRODUCTS_TABLE_SQL, syncAllProductsToDb } from '../lib/productsService';
+import { PRODUCTS_TABLE_SQL, syncAllProductsToDb, deleteProductFromDb, resetPricesAndDescriptionsOnly } from '../lib/productsService';
 import { 
   Lock, 
   User, 
@@ -164,18 +164,19 @@ export default function AdminPanel({ products, dbStatus, onUpdateProducts, onRes
     setEditingProduct(null);
   };
 
-  const handleDeleteProduct = (prodId, prodName) => {
-    if (window.confirm(`Tem certeza que deseja excluir o produto "${prodName}"?`)) {
-      const updatedList = products.filter(p => p.id !== prodId);
-      onUpdateProducts(updatedList);
-      showToast(`Produto "${prodName}" removido do banco de dados.`);
+  const handleDeleteProduct = async (prodId, prodName) => {
+    if (window.confirm(`Tem certeza que deseja excluir o produto "${prodName}" permanentemente?`)) {
+      const res = await deleteProductFromDb(prodId, products);
+      onUpdateProducts(res.products);
+      showToast(`Produto "${prodName}" excluído permanentemente.`);
     }
   };
 
   const handleReset = () => {
-    if (window.confirm('Deseja restaurar todos os produtos para o estado inicial padrão? Todas as alterações personalizadas serão redefinidas.')) {
-      onResetDefault();
-      showToast('Produtos restaurados para o padrão original.');
+    if (window.confirm('Deseja restaurar os preços e descrições originais dos itens ativos? (Atenção: Itens já excluídos NÃO serão trazidos de volta).')) {
+      const resetList = resetPricesAndDescriptionsOnly(products);
+      onUpdateProducts(resetList);
+      showToast('Preços e descrições restaurados para o padrão.');
     }
   };
 
