@@ -13,28 +13,28 @@ export default function Hero() {
       video.setAttribute('playsinline', '');
       video.setAttribute('webkit-playsinline', 'true');
 
-      const startPlay = () => {
-        video.play().catch(() => {});
-      };
-
-      startPlay();
-
-      // Força execução automática ao carregar recursos
-      window.addEventListener('load', startPlay);
-      document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) startPlay();
-      });
-
-      return () => {
-        window.removeEventListener('load', startPlay);
-      };
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Fallback: Se o celular ou modo de economia de bateria bloquear o autoplay, inicia no toque/scroll
+          const handleTouchPlay = () => {
+            if (video) {
+              video.play().catch(() => {});
+            }
+            window.removeEventListener('touchstart', handleTouchPlay);
+            window.removeEventListener('scroll', handleTouchPlay);
+          };
+          window.addEventListener('touchstart', handleTouchPlay, { passive: true });
+          window.addEventListener('scroll', handleTouchPlay, { passive: true });
+        });
+      }
     }
   }, []);
 
   return (
     <section className="hero-pure-section" id="home">
       
-      {/* Vídeo de Fundo em Alta Qualidade com Autoplay Instantâneo */}
+      {/* Vídeo de Fundo em Alta Qualidade com Fallback Suave de Toque */}
       <div className="hero-video-container">
         <video 
           ref={videoRef}
