@@ -18,8 +18,8 @@ export const products = [
     price: 15.00,
     description: 'Linda bandeja de morangos selecionados do tamanho médio a grande.',
     image: '/assets/morango_premium_colheita.jpg',
-    tag: 'MAIS VENDIDO',
-    tagClass: 'green'
+    tag: '',
+    tagClass: ''
   },
   {
     id: 'morango-premium-600g',
@@ -40,8 +40,8 @@ export const products = [
     price: 42.00,
     description: 'Linda bandeja de morangos selecionados do tamanho médio a grande.',
     image: '/assets/morango_premium_colheita.jpg',
-    tag: 'MELHOR CUSTO-BENEFÍCIO',
-    tagClass: 'green'
+    tag: '',
+    tagClass: ''
   },
   {
     id: 'morango-confeiteiro-1kg',
@@ -73,8 +73,8 @@ export const products = [
     price: 10.00,
     description: 'Mini morangos bem docinhos e higienizados na medida certa para o lanche das crianças.',
     image: '/assets/crop_morango_kids.jpg',
-    tag: 'SUCESSO INFANTIL',
-    tagClass: 'green'
+    tag: '',
+    tagClass: ''
   },
 
   // --- CASA LUCHESE ---
@@ -253,8 +253,8 @@ export const products = [
     price: 90.00,
     description: 'Linda muda de morango em kokedama já produzindo! Acompanha nutrição especial.',
     image: '/assets/kokedama_oficial.jpg',
-    tag: 'PRESENTE CRIATIVO',
-    tagClass: 'green'
+    tag: '',
+    tagClass: ''
   },
 
   // --- GELEIAS TRADICIONAIS ---
@@ -266,8 +266,8 @@ export const products = [
     price: 22.00,
     description: 'Receita de família desde 1973! Feita com pedaços inteiros de morango fresco.',
     image: '/assets/sq_geleia_artesanal_1784593733518.jpg',
-    tag: 'RECEITA DE 1973',
-    tagClass: 'red'
+    tag: '',
+    tagClass: ''
   },
   {
     id: 'geleia-frutas-vermelhas-250g',
@@ -277,8 +277,8 @@ export const products = [
     price: 24.00,
     description: 'Combinação perfeita de morangos, amoras e mirtilos cultivados no Rancho.',
     image: '/assets/sq_geleia_artesanal_1784593733518.jpg',
-    tag: 'SABOR INTENSO',
-    tagClass: 'gold'
+    tag: '',
+    tagClass: ''
   },
   {
     id: 'geleia-morango-pimenta-250g',
@@ -288,8 +288,8 @@ export const products = [
     price: 24.00,
     description: 'Contraste entre o doce do morango e o leve picante da pimenta dedo-de-moça.',
     image: '/assets/geleia_artesanal_1784581780896.jpg',
-    tag: 'GOURMET',
-    tagClass: 'red'
+    tag: '',
+    tagClass: ''
   },
 
   // --- GELEIAS ZERO AÇÚCAR ---
@@ -301,8 +301,8 @@ export const products = [
     price: 25.00,
     description: 'Zero adição de açúcares! Adoçada naturally com suco concentrado de maçã.',
     image: '/assets/geleia_artesanal_1784581780896.jpg',
-    tag: '0% AÇÚCAR (SAUDÁVEL)',
-    tagClass: 'green'
+    tag: '',
+    tagClass: ''
   },
 
   // --- ESCOLHAS QUE AMAMOS (Licores, Frutas Congeladas, Tomates) ---
@@ -314,8 +314,8 @@ export const products = [
     price: 79.90,
     description: 'Licor encorpado de butiá envelhecido por 14 meses. Edição especial artesanal RED JOHN em garrafas numeradas.',
     image: '/assets/licor_butia_red_john.jpg',
-    tag: 'EDIÇÃO RARA',
-    tagClass: 'gold'
+    tag: '',
+    tagClass: ''
   },
   {
     id: 'frutas-vermelhas-congeladas-1kg',
@@ -325,8 +325,8 @@ export const products = [
     price: 35.00,
     description: 'Morangos higienizados e congelados soltinhos com mirtilos e amoras selecionados.',
     image: '/assets/frutas_vermelhas_congeladas.jpg',
-    tag: 'MIX DE FRUTAS',
-    tagClass: 'gold'
+    tag: '',
+    tagClass: ''
   },
   {
     id: 'tomate-sweet-grape-1kg',
@@ -336,8 +336,8 @@ export const products = [
     price: 20.00,
     description: 'Selecionados e deliciosos tomates Sweet Grape em rama, firmes e docinhos.',
     image: '/assets/tomate_sweet_grape_fresco.jpg',
-    tag: 'DIRETO DA HORTA',
-    tagClass: 'red'
+    tag: '',
+    tagClass: ''
   },
   {
     id: 'licor-morango-500ml',
@@ -347,8 +347,8 @@ export const products = [
     price: 65.00,
     description: 'Licor artesanal suave produzido com infusão natural de morangos.',
     image: '/assets/sq_licor_artesanal_1784593756852.jpg',
-    tag: 'ARTESANAL',
-    tagClass: 'red'
+    tag: '',
+    tagClass: ''
   },
   {
     id: 'licor-kinka-373ml',
@@ -358,8 +358,8 @@ export const products = [
     price: 69.90,
     description: 'Notas cítricas equilibradas e aroma marcante. Produção limitada.',
     image: '/assets/licor_artesanal_1784581807426.jpg',
-    tag: 'BLEND CÍTRICO',
-    tagClass: 'gold'
+    tag: '',
+    tagClass: ''
   },
   {
     id: 'morango-congelado-1kg',
@@ -369,8 +369,8 @@ export const products = [
     price: 25.00,
     description: 'Morangos higienizados, sem talo e congelados individualmente (IQF).',
     image: '/assets/crop_ultra_congelado.jpg',
-    tag: '100% PRÁTICO',
-    tagClass: 'red'
+    tag: '',
+    tagClass: ''
   },
   {
     id: 'mirtilo-congelado-500g',
@@ -380,8 +380,8 @@ export const products = [
     price: 38.00,
     description: 'Mirtilos super nutritivos, antioxidantes e selecionados a dedo.',
     image: '/assets/frutas_vermelhas_congeladas.jpg',
-    tag: 'SUPERFOOD',
-    tagClass: 'green'
+    tag: '',
+    tagClass: ''
   },
 
   // --- COGUMELOS ---
@@ -393,8 +393,8 @@ export const products = [
     price: 18.00,
     description: 'Cultivados agroecologicamente no Rancho. Cogumelos carnudos e saborosos.',
     image: '/assets/cogumelos_frescos_1784581856797.jpg',
-    tag: 'CULTIVO PRÓPRIO',
-    tagClass: 'green'
+    tag: '',
+    tagClass: ''
   },
   {
     id: 'cogumelos-shimeji-150g',
@@ -404,12 +404,12 @@ export const products = [
     price: 15.00,
     description: 'Sabor delicado e um dos mais consumidos no Brasil. Nosso shimeji fresco combina com tudo.',
     image: '/assets/cogumelo_shimeji_fresco.jpg',
-    tag: 'FRESCO DA HORTA',
-    tagClass: 'green'
+    tag: '',
+    tagClass: ''
   }
 ];
 
-const STORAGE_KEY = 'rancho_products_custom_db_v2';
+const STORAGE_KEY = 'rancho_products_custom_db_v3';
 
 export const getStoredProducts = () => {
   try {
