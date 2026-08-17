@@ -675,15 +675,15 @@ button, input, select, textarea {
   }
 }
 
-/* Scroll Reveal Failsafe CSS */
-.reveal-pending {
+/* Scroll Reveal Animação de Entrada no Scroll */
+.sr-item {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(35px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
-.revealed {
+.sr-item.sr-visible {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
