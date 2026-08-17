@@ -531,7 +531,7 @@ button, input, select, textarea {
 
 .hero-qr-corner-wrapper {
   position: absolute;
-  bottom: -70px;
+  bottom: -115px;
   right: 0px;
   z-index: 10;
 }
