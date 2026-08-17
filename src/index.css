@@ -2856,6 +2856,30 @@ button, input, select, textarea {
   border-top: 1px solid #E5E7EB;
 }
 
+/* Card Price Display for Piece / Weight Varying Items (Queijos) */
+.card-ref-price-piece {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.card-ref-price-piece .piece-tag {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #991B1B;
+  background-color: #FEF2F2;
+  border: 1px solid #FECACA;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.card-ref-price-piece .piece-sub {
+  font-size: 0.75rem;
+  color: #6B7280;
+  font-weight: 500;
+}
+
 .btn-admin-cancel {
   background-color: #F3F4F6;
   color: #4B5563;

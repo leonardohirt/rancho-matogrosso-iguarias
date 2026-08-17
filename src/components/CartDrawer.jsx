@@ -6,6 +6,8 @@ export default function CartDrawer({ isOpen, onClose, cart, onUpdateQuantity, on
 
   const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
+  const hasPieceItem = cart.some(item => item.category === 'queijos' || item.isPricePerPiece || item.price === 0);
+
   const handleSendWhatsApp = () => {
     if (cart.length === 0) return;
 
@@ -13,12 +15,16 @@ export default function CartDrawer({ isOpen, onClose, cart, onUpdateQuantity, on
     message += `-----------------------------------------\n`;
     
     cart.forEach(item => {
-      const subtotal = item.price * item.quantity;
-      message += `• ${item.quantity}x *${item.name}* (R$ ${item.price.toFixed(2).replace('.', ',')} un) = R$ ${subtotal.toFixed(2).replace('.', ',')}\n`;
+      if (item.category === 'queijos' || item.isPricePerPiece || item.price === 0) {
+        message += `• ${item.quantity}x *${item.name}* (Vendido por peça - Valor/peso a confirmar)\n`;
+      } else {
+        const subtotal = item.price * item.quantity;
+        message += `• ${item.quantity}x *${item.name}* (R$ ${item.price.toFixed(2).replace('.', ',')} un) = R$ ${subtotal.toFixed(2).replace('.', ',')}\n`;
+      }
     });
 
     message += `-----------------------------------------\n`;
-    message += `💰 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}\n`;
+    message += `💰 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}${hasPieceItem ? ' (+ Peça/peso a confirmar)' : ''}\n`;
     message += `📍 *LOCAL DE RETIRADA:* ${pickupLocation}\n`;
     message += `-----------------------------------------\n`;
     message += `Olá Alex e Indianara! Gostaria de confirmar a disponibilidade para retirar este pedido.`;
@@ -50,7 +56,11 @@ export default function CartDrawer({ isOpen, onClose, cart, onUpdateQuantity, on
                 <img src={item.image} alt={item.name} className="cart-item-img" />
                 <div className="cart-item-details">
                   <div className="cart-item-title">{item.name}</div>
-                  <div className="cart-item-price">R$ {item.price.toFixed(2).replace('.', ',')}</div>
+                  <div className="cart-item-price">
+                    {item.category === 'queijos' || item.isPricePerPiece || item.price === 0
+                      ? 'Por peça (a confirmar)'
+                      : `R$ ${item.price.toFixed(2).replace('.', ',')}`}
+                  </div>
                   <div className="cart-item-controls">
                     <button className="qty-btn" onClick={() => onUpdateQuantity(item.id, -1)}>-</button>
                     <span className="qty-number">{item.quantity}</span>
@@ -79,7 +89,7 @@ export default function CartDrawer({ isOpen, onClose, cart, onUpdateQuantity, on
 
             <div className="cart-total-row">
               <span>Total do Pedido:</span>
-              <strong>R$ {total.toFixed(2).replace('.', ',')}</strong>
+              <strong>R$ {total.toFixed(2).replace('.', ',')}{hasPieceItem ? ' *' : ''}</strong>
             </div>
 
             <button className="btn btn-whatsapp btn-block btn-lg" onClick={handleSendWhatsApp}>

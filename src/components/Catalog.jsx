@@ -61,20 +61,27 @@ export default function Catalog({ products: propProducts, onAddToCart, onQuickVi
 
                 {/* Rodapé com Preço e Botão PEDIR (Vinho/Vermelho) */}
                 <div className="card-ref-footer">
-                  <div className="card-ref-price">
-                    {product.originalPrice && product.originalPrice > product.price && (
-                      <span className="card-ref-original-price">
-                        De R$ {product.originalPrice.toFixed(2).replace('.', ',')}
-                      </span>
-                    )}
-                    <div className="card-ref-current-price">
-                      <span className="currency">R$</span>
-                      <span className="val">{product.price.toFixed(2).replace('.', ',')}</span>
+                  {product.category === 'queijos' || product.isPricePerPiece || product.price === 0 ? (
+                    <div className="card-ref-price-piece">
+                      <span className="piece-tag">Vendido por Peça</span>
+                      <span className="piece-sub">Consulte valor no WhatsApp</span>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="card-ref-price">
+                      {product.originalPrice && product.originalPrice > product.price && (
+                        <span className="card-ref-original-price">
+                          De R$ {product.originalPrice.toFixed(2).replace('.', ',')}
+                        </span>
+                      )}
+                      <div className="card-ref-current-price">
+                        <span className="currency">R$</span>
+                        <span className="val">{product.price.toFixed(2).replace('.', ',')}</span>
+                      </div>
+                    </div>
+                  )}
 
                   <button className="card-ref-pedir-btn" onClick={() => onAddToCart(product)}>
-                    <MessageCircle size={15} /> PEDIR
+                    <MessageCircle size={15} /> {product.category === 'queijos' || product.isPricePerPiece ? 'CONSULTAR' : 'PEDIR'}
                   </button>
                 </div>
               </div>

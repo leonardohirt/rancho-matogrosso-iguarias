@@ -1,6 +1,8 @@
 export const categories = [
   { id: 'morangos', label: 'MORANGOS' },
   { id: 'casa-luchese', label: 'CASA LUCHESE' },
+  { id: 'queijos', label: 'QUEIJOS ARTESANAIS' },
+  { id: 'congelados', label: 'CONGELADOS' },
   { id: 'kokedama', label: 'KOKEDAMA' },
   { id: 'geleias-tradicionais', label: 'GELEIAS TRADICIONAIS' },
   { id: 'geleias-zero', label: 'GELEIAS ZERO AÇÚCAR' },
@@ -361,25 +363,63 @@ export const products = [
     tag: '',
     tagClass: ''
   },
+  // --- QUEIJOS ---
+  {
+    id: 'queijo-colonial-temperado',
+    name: 'Queijo Colonial e Colonial Temperado',
+    category: 'queijos',
+    categoryLabel: 'QUEIJOS ARTESANAIS',
+    price: 0,
+    isPricePerPiece: true,
+    description: 'Queijo artesanal colonial puro e versão temperada com ervas finas. Produzido por peça, peso e valor sob consulta no WhatsApp.',
+    image: '/assets/queijo_colonial.jpg',
+    tag: '',
+    tagClass: ''
+  },
+  {
+    id: 'queijo-colonial-vinho-tinto',
+    name: 'Queijo Colonial Maturado no Vinho Tinto',
+    category: 'queijos',
+    categoryLabel: 'QUEIJOS ARTESANAIS',
+    price: 0,
+    isPricePerPiece: true,
+    description: 'Queijo colonial maturado em vinho tinto selecionado, casca roxa característica e sabor marcante. Produzido por peça, peso e valor sob consulta no WhatsApp.',
+    image: '/assets/queijo_vinho_tinto.jpg',
+    tag: '',
+    tagClass: ''
+  },
+
+  // --- CONGELADOS ---
   {
     id: 'morango-congelado-1kg',
     name: 'Morango Congelado Soltinho 1kg',
-    category: 'escolhas-que-amamos',
-    categoryLabel: 'ESCOLHAS QUE AMAMOS',
+    category: 'congelados',
+    categoryLabel: 'CONGELADOS',
     price: 25.00,
-    description: 'Morangos higienizados, sem talo e congelados individualmente (IQF).',
+    description: 'Morangos higienizados, sem talo e congelados individualmente (IQF). Prático para sucos e receitas.',
     image: '/assets/crop_ultra_congelado.jpg',
     tag: '',
     tagClass: ''
   },
   {
-    id: 'mirtilo-congelado-500g',
+    id: 'mix-frutas-vermelhas-congeladas',
+    name: 'Mix de Frutas Vermelhas Congeladas 500g',
+    category: 'congelados',
+    categoryLabel: 'CONGELADOS',
+    price: 35.00,
+    description: 'Seleção especial congelada de morangos, amoras e mirtilos do Rancho.',
+    image: '/assets/mix_frutas_congeladas.jpg',
+    tag: '',
+    tagClass: ''
+  },
+  {
+    id: 'mirtilo-congelado-fresco',
     name: 'Mirtilo (Blueberry) Congelado 500g',
-    category: 'escolhas-que-amamos',
-    categoryLabel: 'ESCOLHAS QUE AMAMOS',
+    category: 'congelados',
+    categoryLabel: 'CONGELADOS',
     price: 38.00,
     description: 'Mirtilos super nutritivos, antioxidantes e selecionados a dedo.',
-    image: '/assets/frutas_vermelhas_congeladas.jpg',
+    image: '/assets/mirtilo_congelado.jpg',
     tag: '',
     tagClass: ''
   },

@@ -25,9 +25,11 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
           </p>
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'var(--bg-cream)', padding: '16px 24px', borderRadius: '14px', marginBottom: '20px' }}>
-            <span style={{ fontWeight: '600' }}>Valor Unitário:</span>
-            <strong style={{ fontSize: '1.6rem', color: 'var(--primary-red)' }}>
-              R$ {product.price.toFixed(2).replace('.', ',')}
+            <span style={{ fontWeight: '600' }}>{product.category === 'queijos' || product.isPricePerPiece || product.price === 0 ? 'Preço por Peça:' : 'Valor Unitário:'}</span>
+            <strong style={{ fontSize: product.category === 'queijos' || product.isPricePerPiece || product.price === 0 ? '1.1rem' : '1.6rem', color: 'var(--primary-red)' }}>
+              {product.category === 'queijos' || product.isPricePerPiece || product.price === 0 
+                ? 'Sob consulta no WhatsApp' 
+                : `R$ ${product.price.toFixed(2).replace('.', ',')}`}
             </strong>
           </div>
 
