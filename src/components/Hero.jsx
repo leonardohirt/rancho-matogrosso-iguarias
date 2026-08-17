@@ -1,58 +1,18 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { MessageCircle, Sprout, Leaf, Truck } from 'lucide-react';
 
 export default function Hero() {
-  const videoRef = useRef(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      video.defaultMuted = true;
-      video.muted = true;
-      video.setAttribute('muted', '');
-      video.setAttribute('playsinline', '');
-      video.setAttribute('webkit-playsinline', 'true');
-
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          const handleTouchPlay = () => {
-            if (video) {
-              video.play().catch(() => {});
-            }
-            window.removeEventListener('touchstart', handleTouchPlay);
-            window.removeEventListener('scroll', handleTouchPlay);
-          };
-          window.addEventListener('touchstart', handleTouchPlay, { passive: true });
-          window.addEventListener('scroll', handleTouchPlay, { passive: true });
-        });
-      }
-    }
-  }, []);
-
   return (
     <section className="hero-pure-section" id="home">
       
-      {/* Vídeo de Fundo com Maior Visibilidade */}
+      {/* Foto de Fundo da Estufa (Desfocada e Clara) */}
       <div className="hero-video-container">
-        <video 
-          ref={videoRef}
-          className="hero-bg-video" 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
-          webkit-playsinline="true"
-          preload="auto"
-          poster="/assets/estufa_morangos_bg.jpg"
-        >
-          <source src="/assets/morango-video.mp4" type="video/mp4" />
-        </video>
+        <div className="hero-photo-bg"></div>
         <div className="hero-video-overlay"></div>
       </div>
 
       <div className="container">
-        {/* Conteúdo Centralizado sobre o Vídeo de Fundo */}
+        {/* Conteúdo Centralizado sobre a Foto de Fundo */}
         <div className="hero-pure-centered-content">
 
           {/* Headline Principal */}

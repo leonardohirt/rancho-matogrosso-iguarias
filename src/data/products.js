@@ -6,8 +6,7 @@ export const categories = [
   { id: 'kokedama', label: 'KOKEDAMA' },
   { id: 'geleias-tradicionais', label: 'GELEIAS TRADICIONAIS' },
   { id: 'geleias-zero', label: 'GELEIAS ZERO AÇÚCAR' },
-  { id: 'escolhas-que-amamos', label: 'ESCOLHAS QUE AMAMOS' },
-  { id: 'cogumelos', label: 'COGUMELOS' }
+  { id: 'escolhas-que-amamos', label: 'ESCOLHAS QUE AMAMOS' }
 ];
 
 export const products = [
@@ -420,30 +419,6 @@ export const products = [
     price: 38.00,
     description: 'Mirtilos super nutritivos, antioxidantes e selecionados a dedo.',
     image: '/assets/mirtilo_congelado.jpg',
-    tag: '',
-    tagClass: ''
-  },
-
-  // --- COGUMELOS ---
-  {
-    id: 'cogumelos-shitake-200g',
-    name: 'Cogumelos Shitake Frescos 200g',
-    category: 'cogumelos',
-    categoryLabel: 'COGUMELOS',
-    price: 18.00,
-    description: 'Cultivados agroecologicamente no Rancho. Cogumelos carnudos e saborosos.',
-    image: '/assets/cogumelos_frescos_1784581856797.jpg',
-    tag: '',
-    tagClass: ''
-  },
-  {
-    id: 'cogumelos-shimeji-150g',
-    name: 'Cogumelos Shimeji 150g',
-    category: 'cogumelos',
-    categoryLabel: 'COGUMELOS',
-    price: 15.00,
-    description: 'Sabor delicado e um dos mais consumidos no Brasil. Nosso shimeji fresco combina com tudo.',
-    image: '/assets/cogumelo_shimeji_fresco.jpg',
     tag: '',
     tagClass: ''
   }
