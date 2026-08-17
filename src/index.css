@@ -408,8 +408,7 @@ button, input, select, textarea {
   position: absolute;
   inset: 0;
   background: url('/assets/estufa_morangos_bg.jpg') center center / cover no-repeat;
-  filter: brightness(0.70) contrast(1.05) blur(3.5px);
-  transform: scale(1.05);
+  filter: brightness(0.70) contrast(1.05);
   z-index: 0;
 }
 
