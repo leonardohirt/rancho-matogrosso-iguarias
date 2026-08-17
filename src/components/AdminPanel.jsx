@@ -14,7 +14,7 @@ import {
   Search, 
   Upload, 
   Image as ImageIcon,
-  Sparkles,
+  Package,
   Save,
   X
 } from 'lucide-react';
@@ -35,11 +35,10 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
   // Form Fields for Edit / New Product
   const [formName, setFormName] = useState('');
   const [formCategory, setFormCategory] = useState('morangos');
+  const [formOriginalPrice, setFormOriginalPrice] = useState('');
   const [formPrice, setFormPrice] = useState('');
   const [formDescription, setFormDescription] = useState('');
   const [formImage, setFormImage] = useState('');
-  const [formTag, setFormTag] = useState('');
-  const [formTagClass, setFormTagClass] = useState('green');
 
   useEffect(() => {
     const authSession = sessionStorage.getItem('rancho_admin_auth');
@@ -79,20 +78,18 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
       setEditingProduct(prod);
       setFormName(prod.name || '');
       setFormCategory(prod.category || 'morangos');
+      setFormOriginalPrice(prod.originalPrice ? prod.originalPrice.toString() : '');
       setFormPrice(prod.price ? prod.price.toString() : '0');
       setFormDescription(prod.description || '');
       setFormImage(prod.image || '');
-      setFormTag(prod.tag || '');
-      setFormTagClass(prod.tagClass || 'green');
     } else {
       setEditingProduct({ isNew: true });
       setFormName('');
       setFormCategory('morangos');
+      setFormOriginalPrice('');
       setFormPrice('25.00');
       setFormDescription('');
       setFormImage('/assets/morango_premium_colheita.jpg');
-      setFormTag('');
-      setFormTagClass('green');
     }
     setIsModalOpen(true);
   };
@@ -114,6 +111,8 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
     if (!formName || !formPrice) return;
 
     const parsedPrice = parseFloat(formPrice.replace(',', '.'));
+    const parsedOriginalPrice = formOriginalPrice ? parseFloat(formOriginalPrice.replace(',', '.')) : null;
+
     const categoryObj = categories.find(c => c.id === formCategory);
     const categoryLabel = categoryObj ? categoryObj.label : 'OUTROS';
 
@@ -124,11 +123,12 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
         name: formName,
         category: formCategory,
         categoryLabel,
+        originalPrice: (parsedOriginalPrice && parsedOriginalPrice > parsedPrice) ? parsedOriginalPrice : null,
         price: isNaN(parsedPrice) ? 0 : parsedPrice,
         description: formDescription,
         image: formImage || '/assets/morango_premium_colheita.jpg',
-        tag: formTag,
-        tagClass: formTagClass
+        tag: editingProduct.tag || '',
+        tagClass: editingProduct.tagClass || ''
       };
       updatedList = [newProd, ...products];
       showToast('Novo produto cadastrado com sucesso!');
@@ -140,11 +140,10 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
             name: formName,
             category: formCategory,
             categoryLabel,
+            originalPrice: (parsedOriginalPrice && parsedOriginalPrice > parsedPrice) ? parsedOriginalPrice : null,
             price: isNaN(parsedPrice) ? 0 : parsedPrice,
             description: formDescription,
-            image: formImage,
-            tag: formTag,
-            tagClass: formTagClass
+            image: formImage
           };
         }
         return p;
@@ -306,8 +305,7 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
                   <th>Foto</th>
                   <th>Nome do Produto</th>
                   <th>Categoria</th>
-                  <th>Preço (R$)</th>
-                  <th>Destaque (Badge)</th>
+                  <th>Preço De / Por</th>
                   <th>Ações</th>
                 </tr>
               </thead>
@@ -326,16 +324,14 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
                         <span className="cat-pill">{prod.categoryLabel || prod.category}</span>
                       </td>
                       <td className="col-price">
-                        <strong>R$ {prod.price.toFixed(2).replace('.', ',')}</strong>
-                      </td>
-                      <td className="col-tag">
-                        {prod.tag ? (
-                          <span className={`tag-badge-pill ${prod.tagClass || 'green'}`}>
-                            {prod.tag}
+                        {prod.originalPrice && prod.originalPrice > prod.price && (
+                          <span className="table-original-price">
+                            R$ {prod.originalPrice.toFixed(2).replace('.', ',')}
                           </span>
-                        ) : (
-                          <span className="no-tag">—</span>
                         )}
+                        <strong className="table-sale-price">
+                          R$ {prod.price.toFixed(2).replace('.', ',')}
+                        </strong>
                       </td>
                       <td className="col-actions">
                         <button 
@@ -357,7 +353,7 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="6" className="text-center empty-cell">
+                    <td colSpan="5" className="text-center empty-cell">
                       Nenhum produto encontrado com os filtros atuais.
                     </td>
                   </tr>
@@ -375,7 +371,7 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
             
             <div className="admin-modal-header">
               <h3>
-                <Sparkles size={20} color="#991B1B" /> 
+                <Package size={20} color="#991B1B" /> 
                 {editingProduct && editingProduct.isNew ? 'Cadastrar Novo Produto' : `Editar: ${editingProduct?.name}`}
               </h3>
               <button className="modal-close-round" onClick={() => setIsModalOpen(false)} aria-label="Fechar">
@@ -398,7 +394,7 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group full-width">
                   <label htmlFor="prodCat">Categoria *</label>
                   <select 
                     id="prodCat" 
@@ -411,8 +407,21 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
                   </select>
                 </div>
 
+                {/* Preço Normal (De) + Preço com Desconto (Por) */}
                 <div className="form-group">
-                  <label htmlFor="prodPrice">Preço (R$) *</label>
+                  <label htmlFor="prodOriginalPrice">Preço Normal (R$) <span className="label-optional">(Opcional - De)</span></label>
+                  <input 
+                    type="number" 
+                    step="0.01" 
+                    id="prodOriginalPrice" 
+                    placeholder="Ex: 30.00" 
+                    value={formOriginalPrice}
+                    onChange={(e) => setFormOriginalPrice(e.target.value)}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="prodPrice">Preço com Desconto (R$) * <span className="label-required">(Por)</span></label>
                   <input 
                     type="number" 
                     step="0.01" 
@@ -435,6 +444,7 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
                   ></textarea>
                 </div>
 
+                {/* Imagem do Produto: Apenas Upload de Foto */}
                 <div className="form-group full-width image-field-box">
                   <label><ImageIcon size={16} /> Imagem do Produto</label>
                   <div className="image-preview-and-inputs">
@@ -455,39 +465,8 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
                           />
                         </label>
                       </div>
-                      <span className="or-divider">ou digite a URL da imagem:</span>
-                      <input 
-                        type="text" 
-                        placeholder="Ex: /assets/minha_foto.jpg" 
-                        value={formImage}
-                        onChange={(e) => setFormImage(e.target.value)}
-                      />
                     </div>
                   </div>
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="prodTag">Selo de Destaque (Badge)</label>
-                  <input 
-                    type="text" 
-                    id="prodTag" 
-                    placeholder="Ex: MAIS VENDIDO ou CASA LUCHESE" 
-                    value={formTag}
-                    onChange={(e) => setFormTag(e.target.value)}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="prodTagClass">Cor do Selo</label>
-                  <select 
-                    id="prodTagClass" 
-                    value={formTagClass} 
-                    onChange={(e) => setFormTagClass(e.target.value)}
-                  >
-                    <option value="green">Verde (Saudável / Orgânico)</option>
-                    <option value="gold">Dourado / Amarelo (Edição Especial)</option>
-                    <option value="red">Vermelho (Destaque Principal)</option>
-                  </select>
                 </div>
 
               </div>
