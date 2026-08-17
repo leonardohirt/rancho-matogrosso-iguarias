@@ -523,82 +523,113 @@ button, input, select, textarea {
   transform: translateY(-2px);
 }
 
-/* Hero Trust Bar (QR Code Instagram no Canto Direito e Menor) */
-.hero-trust-bar {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 16px;
+/* Layout da Seção Hero com Card do QR Code no Canto Direito */
+.hero-layout-container {
+  position: relative;
   width: 100%;
-  max-width: 780px;
-  margin-top: 15px;
 }
 
-.qr-card-link {
+.hero-qr-corner-wrapper {
+  position: absolute;
+  bottom: -30px;
+  right: 0;
+  z-index: 10;
+}
+
+/* Card Escuro Fiel à Imagem do Usuário */
+.qr-dark-card-link {
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(10px);
-  padding: 8px 14px 8px 8px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+  gap: 16px;
+  background: rgba(18, 16, 14, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 14px 18px 14px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
   text-decoration: none;
   transition: all 0.25s ease;
+  max-width: 380px;
 }
 
-.qr-card-link:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 12px 30px rgba(153, 27, 27, 0.35);
-  background: #FFFFFF;
+.qr-dark-card-link:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(24, 20, 18, 0.95);
 }
 
-.qr-img-box {
-  width: 46px;
-  height: 46px;
-  border-radius: 10px;
+.qr-dark-img-box {
+  width: 92px;
+  height: 92px;
+  border-radius: 14px;
   overflow: hidden;
-  background-color: #FFF;
-  padding: 2px;
-  border: 1px solid #E5E7EB;
+  background-color: #FFFFFF;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
 }
 
-.qr-img-box img {
+.qr-dark-img-box img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-.qr-card-info {
+.qr-dark-card-info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
 }
 
-.qr-tag {
-  font-size: 0.62rem;
-  font-weight: 800;
-  color: #991B1B;
-  letter-spacing: 0.4px;
-  display: flex;
-  align-items: center;
-  gap: 3px;
-}
-
-.qr-handle {
-  font-size: 0.80rem;
-  font-weight: 800;
-  color: #111827;
-  margin: 1px 0;
-}
-
-.qr-hint {
+.qr-red-tag {
   font-size: 0.68rem;
-  color: #6B7280;
-  font-weight: 500;
+  font-weight: 800;
+  color: #EF4444;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.qr-serif-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.55rem;
+  color: #FFFFFF;
+  line-height: 1.1;
+  margin: 2px 0 3px 0;
+  letter-spacing: -0.3px;
+}
+
+.qr-handle-text {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+  letter-spacing: -0.2px;
+}
+
+.qr-sub-desc {
+  font-size: 0.74rem;
+  color: #9CA3AF;
+  line-height: 1.35;
+  margin: 0;
+  font-weight: 400;
+}
+
+@media (max-width: 992px) {
+  .hero-qr-corner-wrapper {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -616,15 +647,31 @@ button, input, select, textarea {
     font-size: 0.82rem;
   }
 
-  .hero-trust-bar {
+  .hero-qr-corner-wrapper {
     justify-content: center;
-    width: 100%;
-    margin-top: 10px;
   }
 
-  .qr-card-link {
-    width: auto;
-    justify-content: center;
+  .qr-dark-card-link {
+    width: 100%;
+    padding: 12px 14px;
+    gap: 12px;
+  }
+
+  .qr-dark-img-box {
+    width: 78px;
+    height: 78px;
+  }
+
+  .qr-serif-title {
+    font-size: 1.35rem;
+  }
+
+  .qr-handle-text {
+    font-size: 0.78rem;
+  }
+
+  .qr-sub-desc {
+    font-size: 0.70rem;
   }
 }
 

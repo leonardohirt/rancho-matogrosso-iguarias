@@ -1,14 +1,6 @@
 import React from 'react';
 import { MessageCircle } from 'lucide-react';
 
-const InstagramIcon = ({ size = 14 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline', verticalAlign: 'middle' }}>
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-  </svg>
-);
-
 export default function Hero() {
   return (
     <section className="hero-pure-section" id="home">
@@ -19,7 +11,7 @@ export default function Hero() {
         <div className="hero-video-overlay"></div>
       </div>
 
-      <div className="container">
+      <div className="container hero-layout-container">
         {/* Conteúdo Centralizado */}
         <div className="hero-pure-centered-content">
 
@@ -43,27 +35,31 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Card com QR Code do Instagram Oficial */}
-          <div className="hero-trust-bar reveal">
-            <a 
-              href="https://instagram.com/ranchomatogrossoiguarias" 
-              target="_blank" 
-              rel="noreferrer" 
-              className="qr-card-link"
-              title="Acessar Instagram @ranchomatogrossoiguarias"
-            >
-              <div className="qr-img-box">
-                <img src="/assets/qr_code_instagram.png" alt="QR Code Instagram @ranchomatogrossoiguarias" />
-              </div>
-              <div className="qr-card-info">
-                <span className="qr-tag"><InstagramIcon size={13} /> INSTAGRAM OFICIAL</span>
-                <span className="qr-handle">@ranchomatogrossoiguarias</span>
-                <span className="qr-hint">Escaneie ou toque para abrir</span>
-              </div>
-            </a>
-          </div>
-
         </div>
+
+        {/* Card do QR Code do Instagram Fiel à Imagem no Canto Direito */}
+        <div className="hero-qr-corner-wrapper reveal">
+          <a 
+            href="https://instagram.com/ranchomatogrossoiguarias" 
+            target="_blank" 
+            rel="noreferrer" 
+            className="qr-dark-card-link"
+            title="Siga nosso Instagram @ranchomatogrossoiguarias"
+          >
+            <div className="qr-dark-img-box">
+              <img src="/assets/qr_code_instagram.png" alt="QR Code Instagram @ranchomatogrossoiguarias" />
+            </div>
+            <div className="qr-dark-card-info">
+              <span className="qr-red-tag">SIGA NOSSO</span>
+              <h4 className="qr-serif-title">Instagram</h4>
+              <span className="qr-handle-text">@ranchomatogrossoiguarias</span>
+              <p className="qr-sub-desc">
+                Escaneie o QR Code<br />e acompanhe nosso dia a dia!
+              </p>
+            </div>
+          </a>
+        </div>
+
       </div>
 
     </section>
