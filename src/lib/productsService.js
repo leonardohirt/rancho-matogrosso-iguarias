@@ -1,4 +1,3 @@
-import { supabase } from './supabase';
 import { products as defaultProducts } from '../data/products';
 
 const LOCAL_STORAGE_KEY = 'rancho_products_custom_db_v4';
@@ -30,9 +29,6 @@ CREATE POLICY "Permitir leitura pública" ON products FOR SELECT USING (true);
 CREATE POLICY "Permitir tudo para todos" ON products FOR ALL USING (true) WITH CHECK (true);
 `;
 
-/**
- * Retorna os IDs dos produtos excluídos permanentemente pelo usuário
- */
 function getDeletedProductIds() {
   try {
     const stored = localStorage.getItem(DELETED_IDS_KEY);
@@ -46,9 +42,6 @@ function getDeletedProductIds() {
   return [];
 }
 
-/**
- * Adiciona um ID à lista de produtos excluídos
- */
 function addDeletedProductId(id) {
   try {
     const deleted = getDeletedProductIds();
@@ -62,33 +55,24 @@ function addDeletedProductId(id) {
 }
 
 /**
- * Busca os produtos do Supabase (com fallback para localStorage e dataset padrão, filtrando os deletados)
+ * Busca os produtos através da Serverless Function protegida `/api/products`
  */
 export async function fetchProductsFromDb() {
   const deletedIds = getDeletedProductIds();
 
   try {
-    const { data, error } = await supabase
-      .from('products')
-      .select('*')
-      .order('id', { ascending: true });
+    const res = await fetch('/api/products');
+    const data = await res.json();
 
-    if (error) {
-      console.warn('Tabela Supabase "products" indisponível:', error.message);
-      const local = getLocalProducts().filter(p => !deletedIds.includes(p.id));
-      return { products: local, isDbAvailable: false, error: error.message };
-    }
-
-    if (data && data.length > 0) {
-      // Mapeia colunas do Supabase e filtra deletados
-      const formatted = data
+    if (data.success && data.products && data.products.length > 0) {
+      const formatted = data.products
         .filter(row => !deletedIds.includes(row.id))
         .map(row => ({
           id: row.id,
           name: row.name,
           category: row.category,
           categoryLabel: row.category_label || row.categoryLabel || row.category,
-          originalPrice: row.original_price ? parseFloat(row.original_price) : null,
+          originalPrice: (row.original_price || row.originalPrice) ? parseFloat(row.original_price || row.originalPrice) : null,
           price: parseFloat(row.price),
           description: row.description || '',
           image: row.image || '/assets/morango_premium_colheita.jpg',
@@ -103,14 +87,14 @@ export async function fetchProductsFromDb() {
       return { products: local, isDbAvailable: true, isDbEmpty: true, error: null };
     }
   } catch (err) {
-    console.error('Erro na conexão com Supabase:', err);
+    console.warn('Servidor API indisponível, usando cache local:', err.message);
     const local = getLocalProducts().filter(p => !deletedIds.includes(p.id));
     return { products: local, isDbAvailable: false, error: err.message };
   }
 }
 
 /**
- * Salva um único produto no Supabase e atualiza o localStorage
+ * Salva um único produto através da Serverless API protegida `/api/products`
  */
 export async function saveProductToDb(product, allProducts) {
   const updatedAll = allProducts.map(p => p.id === product.id ? product : p);
@@ -119,34 +103,23 @@ export async function saveProductToDb(product, allProducts) {
   saveLocalProducts(finalList);
 
   try {
-    const rowToUpsert = {
-      id: product.id,
-      name: product.name,
-      category: product.category,
-      category_label: product.categoryLabel || product.category,
-      original_price: product.originalPrice ? parseFloat(product.originalPrice) : null,
-      price: parseFloat(product.price),
-      description: product.description || '',
-      image: product.image || '',
-      tag: product.tag || '',
-      tag_class: product.tagClass || '',
-      updated_at: new Date().toISOString()
-    };
-
-    const { error } = await supabase.from('products').upsert(rowToUpsert);
-    if (error) {
-      console.warn('Erro ao salvar no Supabase:', error.message);
-      return { success: false, error: error.message, products: finalList };
+    const res = await fetch('/api/products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ products: [product] })
+    });
+    const data = await res.json();
+    if (!data.success) {
+      return { success: false, error: data.error, products: finalList };
     }
     return { success: true, products: finalList };
   } catch (err) {
-    console.error('Falha ao salvar produto no banco:', err);
     return { success: false, error: err.message, products: finalList };
   }
 }
 
 /**
- * Deleta um produto permanentemente do Supabase, do localStorage e grava o ID como deletado
+ * Deleta um produto permanentemente através da Serverless API protegida `/api/products`
  */
 export async function deleteProductFromDb(productId, allProducts) {
   addDeletedProductId(productId);
@@ -154,19 +127,18 @@ export async function deleteProductFromDb(productId, allProducts) {
   saveLocalProducts(filtered);
 
   try {
-    const { error } = await supabase.from('products').delete().eq('id', productId);
-    if (error) {
-      console.warn('Aviso ao deletar linha do Supabase:', error.message);
-    }
+    await fetch(`/api/products?id=${encodeURIComponent(productId)}`, {
+      method: 'DELETE'
+    });
   } catch (err) {
-    console.error('Erro ao deletar no Supabase:', err);
+    console.error('Erro ao deletar produto no backend:', err);
   }
 
   return { success: true, products: filtered };
 }
 
 /**
- * Restaura preços e descrições originais apenas para os produtos ativos (NÃO traz de volta itens apagados)
+ * Restaura preços e descrições originais
  */
 export function resetPricesAndDescriptionsOnly(currentProductsList) {
   const deletedIds = getDeletedProductIds();
@@ -192,40 +164,31 @@ export function resetPricesAndDescriptionsOnly(currentProductsList) {
 }
 
 /**
- * Sincroniza em lote todos os produtos ativos com o Supabase
+ * Sincroniza em lote todos os produtos através da Serverless API protegida `/api/products`
  */
 export async function syncAllProductsToDb(productsList) {
   const deletedIds = getDeletedProductIds();
   const activeProducts = productsList.filter(p => !deletedIds.includes(p.id));
 
   try {
-    const rows = activeProducts.map(product => ({
-      id: product.id,
-      name: product.name,
-      category: product.category,
-      category_label: product.categoryLabel || product.category,
-      original_price: product.originalPrice ? parseFloat(product.originalPrice) : null,
-      price: parseFloat(product.price),
-      description: product.description || '',
-      image: product.image || '',
-      tag: product.tag || '',
-      tag_class: product.tagClass || '',
-      updated_at: new Date().toISOString()
-    }));
+    const res = await fetch('/api/products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ products: activeProducts })
+    });
 
-    const { error } = await supabase.from('products').upsert(rows);
-    if (error) {
-      return { success: false, error: error.message };
+    const data = await res.json();
+    if (!data.success) {
+      return { success: false, error: data.error };
     }
 
     saveLocalProducts(activeProducts);
-    return { success: true, count: rows.length };
+    return { success: true, count: activeProducts.length };
   } catch (err) {
     return { success: false, error: err.message };
   }
 }
 
-// Helpers de cache local
 function getLocalProducts() {
   const deletedIds = getDeletedProductIds();
   try {

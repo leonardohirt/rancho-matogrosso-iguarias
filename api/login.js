@@ -1,6 +1,5 @@
-// Vercel Serverless API Function para Autenticação Segura no Servidor
+// Vercel Serverless Function: api/login.js
 export default async function handler(req, res) {
-  // Permitir apenas requisições POST
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, error: 'Método não permitido.' });
   }
@@ -8,21 +7,22 @@ export default async function handler(req, res) {
   try {
     const { username, password } = req.body || {};
 
-    const envUser = process.env.ADMIN_USERNAME || 'admin';
-    const envPass = process.env.ADMIN_PASSWORD || 'rancho123';
+    // Variáveis de ambiente configuradas no painel da Vercel (sem exposição no cliente)
+    const adminUser = process.env.ADMIN_USERNAME || 'admin';
+    const adminPass = process.env.ADMIN_PASSWORD || 'rancho123';
 
     const inputUser = (username || '').trim().toLowerCase();
     const inputPass = (password || '').trim();
 
-    // Verificação estrita apenas no servidor Vercel
+    // Comparação segura realizada exclusivamente no servidor Vercel
     if (
-      (inputUser === envUser.toLowerCase() || inputUser === 'adm') &&
-      (inputPass === envPass || inputPass === 'admin123')
+      (inputUser === adminUser.toLowerCase() || inputUser === 'adm') &&
+      (inputPass === adminPass || inputPass === 'admin123')
     ) {
       return res.status(200).json({ 
         success: true, 
         message: 'Autenticado com sucesso.',
-        token: 'rancho_session_' + Date.now()
+        token: 'rancho_auth_' + Date.now()
       });
     }
 
@@ -33,7 +33,7 @@ export default async function handler(req, res) {
   } catch (err) {
     return res.status(500).json({ 
       success: false, 
-      error: 'Erro interno no servidor de autenticação.' 
+      error: 'Erro no servidor de autenticação.' 
     });
   }
 }

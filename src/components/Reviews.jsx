@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { MessageSquare, Star, CheckCircle, MapPin, Tag, Send, ChevronLeft, ChevronRight, X, PlusCircle } from 'lucide-react';
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
-
-const RETENTION_DAYS = 60; // Purga de avaliações com mais de 60 dias
 
 export default function Reviews() {
   const [reviews, setReviews] = useState([]);
@@ -23,45 +20,25 @@ export default function Reviews() {
 
   const loadReviews = async () => {
     setLoading(true);
-    const cutoffDate = new Date();
-    cutoffDate.setDate(cutoffDate.getDate() - RETENTION_DAYS);
-    const cutoffIso = cutoffDate.toISOString();
+    try {
+      const res = await fetch('/api/reviews');
+      const data = await res.json();
 
-    if (isSupabaseConfigured) {
-      try {
-        await supabase
-          .from('reviews')
-          .delete()
-          .lt('created_at', cutoffIso);
-
-        const { data, error } = await supabase
-          .from('reviews')
-          .select('*')
-          .order('created_at', { ascending: false });
-
-        if (!error && data) {
-          const formatted = data.map(r => ({
-            ...r,
-            date: new Date(r.created_at).toLocaleDateString('pt-BR')
-          }));
-          setReviews(formatted);
-          setLoading(false);
-          return;
-        }
-      } catch (err) {
-        console.warn('Carregando armazenamento local:', err);
+      if (data.success && data.reviews && data.reviews.length > 0) {
+        const formatted = data.reviews.map(r => ({
+          ...r,
+          date: new Date(r.created_at || Date.now()).toLocaleDateString('pt-BR')
+        }));
+        setReviews(formatted);
+        setLoading(false);
+        return;
       }
+    } catch (err) {
+      console.warn('Servidor de avaliações indisponível, usando cache local:', err);
     }
 
     const saved = localStorage.getItem('rancho_reviews_db');
     let list = saved ? JSON.parse(saved) : [];
-    
-    list = list.filter(r => {
-      if (!r.created_at) return true;
-      return new Date(r.created_at) >= cutoffDate;
-    });
-
-    localStorage.setItem('rancho_reviews_db', JSON.stringify(list));
     setReviews(list);
     setLoading(false);
   };
@@ -87,30 +64,30 @@ export default function Reviews() {
       city,
       rating,
       product,
-      comment,
-      created_at: new Date().toISOString()
+      comment
     };
 
-    if (isSupabaseConfigured) {
-      try {
-        const { data, error } = await supabase
-          .from('reviews')
-          .insert([newReviewData])
-          .select();
+    try {
+      const res = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newReviewData)
+      });
+      const data = await res.json();
 
-        if (!error) {
-          await loadReviews();
-        }
-      } catch (err) {
-        console.error('Erro ao salvar avaliação:', err);
+      if (data.success) {
+        await loadReviews();
+      } else {
+        throw new Error(data.error);
       }
-    } else {
+    } catch (err) {
+      console.warn('Erro ao salvar avaliação via API, salvando localmente:', err);
       const localReview = {
         id: Date.now(),
         ...newReviewData,
+        created_at: new Date().toISOString(),
         date: new Date().toLocaleDateString('pt-BR')
       };
-
       const updated = [localReview, ...reviews];
       setReviews(updated);
       localStorage.setItem('rancho_reviews_db', JSON.stringify(updated));
@@ -203,19 +180,19 @@ export default function Reviews() {
 
             <div className="reviews-grid">
               {currentReviews.map(r => (
-                <div key={r.id} className="review-card">
+                <div key={r.id || Math.random()} className="review-card">
                   <div className="review-card-header">
                     <div className="reviewer-info">
                       <h4>{r.name}</h4>
                       <span className="reviewer-location"><MapPin size={12} /> {r.city}</span>
                     </div>
                     <div className="review-stars">
-                      {[...Array(r.rating)].map((_, i) => (
+                      {[...Array(r.rating || 5)].map((_, i) => (
                         <Star key={i} size={14} fill="#F59E0B" color="#F59E0B" />
                       ))}
                     </div>
                   </div>
-                  <span className="review-product-tag"><Tag size={12} /> {r.product}</span>
+                  <span className="review-product-tag"><Tag size={12} /> {r.product || 'Morango Premium'}</span>
                   <p className="review-text">"{r.comment}"</p>
                 </div>
               ))}
