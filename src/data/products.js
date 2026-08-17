@@ -28,7 +28,7 @@ export const products = [
     categoryLabel: 'MORANGOS',
     price: 28.00,
     description: 'Linda bandeja de morangos selecionados do tamanho médio a grande.',
-    image: '/assets/morango_premium_colheita.jpg',
+    image: '/assets/morango_600g_bandeja.jpg',
     tag: '',
     tagClass: ''
   },
