@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { categories } from '../data/products';
+import { PRODUCTS_TABLE_SQL, syncAllProductsToDb } from '../lib/productsService';
 import { 
   Lock, 
   User, 
@@ -16,10 +17,15 @@ import {
   Image as ImageIcon,
   Package,
   Save,
+  Cloud,
+  CloudCheck,
+  AlertCircle,
+  Copy,
+  ExternalLink,
   X
 } from 'lucide-react';
 
-export default function AdminPanel({ products, onUpdateProducts, onResetDefault, onCloseAdmin }) {
+export default function AdminPanel({ products, dbStatus, onUpdateProducts, onResetDefault, onCloseAdmin }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -39,6 +45,8 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
   const [formPrice, setFormPrice] = useState('');
   const [formDescription, setFormDescription] = useState('');
   const [formImage, setFormImage] = useState('');
+
+  const [isSyncingDb, setIsSyncingDb] = useState(false);
 
   useEffect(() => {
     const authSession = sessionStorage.getItem('rancho_admin_auth');
@@ -70,7 +78,7 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
     setToastMessage(msg);
     setTimeout(() => {
       setToastMessage('');
-    }, 3000);
+    }, 3500);
   };
 
   const handleOpenEdit = (prod) => {
@@ -131,7 +139,7 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
         tagClass: editingProduct.tagClass || ''
       };
       updatedList = [newProd, ...products];
-      showToast('Novo produto cadastrado com sucesso!');
+      showToast('Novo produto cadastrado e salvo no banco de dados!');
     } else {
       updatedList = products.map(p => {
         if (p.id === editingProduct.id) {
@@ -148,7 +156,7 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
         }
         return p;
       });
-      showToast(`Produto "${formName}" atualizado com sucesso!`);
+      showToast(`Produto "${formName}" atualizado no banco de dados!`);
     }
 
     onUpdateProducts(updatedList);
@@ -160,7 +168,7 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
     if (window.confirm(`Tem certeza que deseja excluir o produto "${prodName}"?`)) {
       const updatedList = products.filter(p => p.id !== prodId);
       onUpdateProducts(updatedList);
-      showToast(`Produto "${prodName}" removido.`);
+      showToast(`Produto "${prodName}" removido do banco de dados.`);
     }
   };
 
@@ -169,6 +177,22 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
       onResetDefault();
       showToast('Produtos restaurados para o padrão original.');
     }
+  };
+
+  const handleSyncAllDb = async () => {
+    setIsSyncingDb(true);
+    const res = await syncAllProductsToDb(products);
+    setIsSyncingDb(false);
+    if (res.success) {
+      showToast(`Todos os ${res.count} produtos foram sincronizados com o Supabase com sucesso!`);
+    } else {
+      alert(`Aviso do Banco Supabase: ${res.error}\n\nExecute o script SQL no editor do Supabase se a tabela ainda não existir.`);
+    }
+  };
+
+  const handleCopySql = () => {
+    navigator.clipboard.writeText(PRODUCTS_TABLE_SQL);
+    showToast('Código SQL copiado para a área de transferência!');
   };
 
   const filteredProducts = products.filter(p => {
@@ -256,6 +280,9 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
             <button className="btn-admin-action green" onClick={() => handleOpenEdit(null)}>
               <PlusCircle size={18} /> Novo Produto
             </button>
+            <button className="btn-admin-action outline" onClick={handleSyncAllDb} disabled={isSyncingDb}>
+              <Cloud size={16} /> {isSyncingDb ? 'Sincronizando...' : 'Sincronizar Banco'}
+            </button>
             <button className="btn-admin-action outline" onClick={handleReset} title="Restaurar Produtos Padrão">
               <RotateCcw size={16} /> Restaurar Padrões
             </button>
@@ -271,6 +298,41 @@ export default function AdminPanel({ products, onUpdateProducts, onResetDefault,
 
       <main className="container admin-dashboard-body">
         
+        {/* Banner Status do Banco Supabase */}
+        {dbStatus && !dbStatus.isDbAvailable && (
+          <div className="db-alert-card warning">
+            <div className="db-alert-header">
+              <AlertCircle size={22} color="#D97706" />
+              <div>
+                <h4>Configurar Tabela de Produtos no Supabase</h4>
+                <p>
+                  Para sincronizar alterações de preços e itens entre todos os dispositivos, execute o script SQL de criação da tabela "products" no Supabase SQL Editor.
+                </p>
+              </div>
+            </div>
+            <div className="db-alert-actions">
+              <button className="btn-sql-copy" onClick={handleCopySql}>
+                <Copy size={16} /> Copiar SQL do Banco
+              </button>
+              <a 
+                href="https://supabase.com/dashboard/project/abdwsujajtnkpnorufin/sql" 
+                target="_blank" 
+                rel="noreferrer"
+                className="btn-sql-link"
+              >
+                Abrir Supabase SQL Editor <ExternalLink size={14} />
+              </a>
+            </div>
+          </div>
+        )}
+
+        {dbStatus && dbStatus.isDbAvailable && (
+          <div className="db-status-pill success">
+            <CloudCheck size={18} color="#059669" />
+            <span>Sincronização com o Banco de Dados Supabase Ativa! Todos os preços e itens salvos aqui ficam salvos no servidor.</span>
+          </div>
+        )}
+
         <div className="admin-filter-bar">
           <div className="search-input-wrapper">
             <Search size={18} color="#9CA3AF" />

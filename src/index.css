@@ -2903,3 +2903,92 @@ button, input, select, textarea {
   font-weight: 700;
 }
 
+/* Banner de Status do Banco de Dados Supabase */
+.db-status-pill.success {
+  background-color: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  color: #065F46;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.db-alert-card.warning {
+  background-color: #FFFBEB;
+  border: 1px solid #FDE68A;
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 24px;
+}
+
+.db-alert-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.db-alert-header h4 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #92400E;
+  margin: 0 0 4px 0;
+}
+
+.db-alert-header p {
+  font-size: 0.85rem;
+  color: #B45309;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.db-alert-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-sql-copy {
+  background-color: #D97706;
+  color: #FFFFFF;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-sql-copy:hover {
+  background-color: #B45309;
+}
+
+.btn-sql-link {
+  background-color: #FFFFFF;
+  color: #92400E;
+  border: 1px solid #FCD34D;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-sql-link:hover {
+  background-color: #FEF3C7;
+}
+
+

@@ -11,6 +11,7 @@ import ProductModal from './components/ProductModal';
 import Footer from './components/Footer';
 import AdminPanel from './components/AdminPanel';
 import { getStoredProducts, saveStoredProducts, resetProductsToDefault } from './data/products';
+import { fetchProductsFromDb, syncAllProductsToDb } from './lib/productsService';
 
 export default function App() {
   const [productsList, setProductsList] = useState(getStoredProducts);
@@ -18,8 +19,27 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+  // Status da Conexão com o Banco Supabase
+  const [dbStatus, setDbStatus] = useState({ isDbAvailable: true, isDbEmpty: false, error: null });
+
   // Rota Oculta de Administração (/adm ou #adm)
   const [isAdminRoute, setIsAdminRoute] = useState(false);
+
+  // Carrega os produtos do Banco de Dados Supabase na inicialização
+  useEffect(() => {
+    async function loadDbProducts() {
+      const res = await fetchProductsFromDb();
+      if (res.products && res.products.length > 0) {
+        setProductsList(res.products);
+      }
+      setDbStatus({
+        isDbAvailable: res.isDbAvailable,
+        isDbEmpty: res.isDbEmpty || false,
+        error: res.error
+      });
+    }
+    loadDbProducts();
+  }, []);
 
   useEffect(() => {
     const checkAdminRoute = () => {
@@ -44,11 +64,18 @@ export default function App() {
   const handleUpdateProducts = (newList) => {
     setProductsList(newList);
     saveStoredProducts(newList);
+    // Tenta sincronizar em lote com Supabase
+    syncAllProductsToDb(newList).then(res => {
+      if (res.success) {
+        setDbStatus(prev => ({ ...prev, isDbAvailable: true, error: null }));
+      }
+    });
   };
 
   const handleResetDefault = () => {
     const defaultList = resetProductsToDefault();
     setProductsList(defaultList);
+    syncAllProductsToDb(defaultList);
   };
 
   const handleCloseAdmin = () => {
@@ -96,6 +123,7 @@ export default function App() {
     return (
       <AdminPanel 
         products={productsList}
+        dbStatus={dbStatus}
         onUpdateProducts={handleUpdateProducts}
         onResetDefault={handleResetDefault}
         onCloseAdmin={handleCloseAdmin}
