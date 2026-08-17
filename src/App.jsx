@@ -12,16 +12,12 @@ import Footer from './components/Footer';
 import AdminPanel from './components/AdminPanel';
 import { getStoredProducts, saveStoredProducts, resetProductsToDefault } from './data/products';
 import { fetchProductsFromDb, syncAllProductsToDb, resetPricesAndDescriptionsOnly } from './lib/productsService';
-import { useScrollReveal } from './lib/useScrollReveal';
 
 export default function App() {
   const [productsList, setProductsList] = useState(getStoredProducts);
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-
-  // Ativa animação Scroll Reveal em todo o site
-  useScrollReveal([productsList]);
 
   // Status da Conexão com o Banco Supabase
   const [dbStatus, setDbStatus] = useState({ isDbAvailable: true, isDbEmpty: false, error: null });

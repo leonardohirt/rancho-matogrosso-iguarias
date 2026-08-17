@@ -16,17 +16,17 @@ export default function Hero() {
         <div className="hero-pure-centered-content">
 
           {/* Headline Principal */}
-          <h1 className="hero-pure-title reveal">
+          <h1 className="hero-pure-title">
             Rancho <span className="script-italic-red">Matogrosso</span>
           </h1>
 
           {/* Subtítulo Conciso */}
-          <p className="hero-pure-desc reveal">
+          <p className="hero-pure-desc">
             Fruticultura Inteligente
           </p>
 
           {/* Botões em Formato Pílula */}
-          <div className="hero-pure-buttons reveal">
+          <div className="hero-pure-buttons">
             <a href="#catalogo" className="btn-pure-red">
               VER CATÁLOGO
             </a>
@@ -38,7 +38,7 @@ export default function Hero() {
         </div>
 
         {/* Card do QR Code do Instagram Fiel à Imagem no Canto Direito */}
-        <div className="hero-qr-corner-wrapper reveal">
+        <div className="hero-qr-corner-wrapper">
           <a 
             href="https://instagram.com/ranchomatogrossoiguarias" 
             target="_blank" 
