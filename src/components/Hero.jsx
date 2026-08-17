@@ -7,32 +7,34 @@ export default function Hero() {
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
-      // Garante muting a nível de propriedade DOM para Safari iOS e Chrome Android
       video.defaultMuted = true;
       video.muted = true;
-      
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // Se o celular bloquear o autoplay (ex: economia de bateria), inicia ao tocar na tela
-          const handleTouchPlay = () => {
-            if (video) {
-              video.play().catch(() => {});
-            }
-            window.removeEventListener('touchstart', handleTouchPlay);
-            window.removeEventListener('scroll', handleTouchPlay);
-          };
-          window.addEventListener('touchstart', handleTouchPlay, { passive: true });
-          window.addEventListener('scroll', handleTouchPlay, { passive: true });
-        });
-      }
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', 'true');
+
+      const startPlay = () => {
+        video.play().catch(() => {});
+      };
+
+      startPlay();
+
+      // Força execução automática ao carregar recursos
+      window.addEventListener('load', startPlay);
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) startPlay();
+      });
+
+      return () => {
+        window.removeEventListener('load', startPlay);
+      };
     }
   }, []);
 
   return (
     <section className="hero-pure-section" id="home">
       
-      {/* Vídeo de Fundo em Alta Qualidade (Mobile Autoplay Compatible) */}
+      {/* Vídeo de Fundo em Alta Qualidade com Autoplay Instantâneo */}
       <div className="hero-video-container">
         <video 
           ref={videoRef}
@@ -44,8 +46,9 @@ export default function Hero() {
           webkit-playsinline="true"
           preload="auto"
           poster="/assets/estufa_morangos_bg.jpg"
-          src="/assets/morango-video.mp4"
-        />
+        >
+          <source src="/assets/morango-video.mp4" type="video/mp4" />
+        </video>
         <div className="hero-video-overlay"></div>
       </div>
 
