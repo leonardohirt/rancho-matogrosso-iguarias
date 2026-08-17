@@ -523,7 +523,7 @@ button, input, select, textarea {
   transform: translateY(-2px);
 }
 
-/* Layout da Seção Hero com Card do QR Code no Canto Direito */
+/* Layout da Seção Hero com Card do QR Code no Canto Inferior Direito */
 .hero-layout-container {
   position: relative;
   width: 100%;
@@ -531,8 +531,8 @@ button, input, select, textarea {
 
 .hero-qr-corner-wrapper {
   position: absolute;
-  bottom: -30px;
-  right: 0;
+  bottom: 0px;
+  right: 0px;
   z-index: 10;
 }
 
