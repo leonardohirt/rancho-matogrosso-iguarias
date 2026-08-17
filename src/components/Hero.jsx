@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageCircle, Award, ShieldCheck } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 
 const InstagramIcon = ({ size = 14 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline', verticalAlign: 'middle' }}>
@@ -13,7 +13,7 @@ export default function Hero() {
   return (
     <section className="hero-pure-section" id="home">
       
-      {/* Foto de Fundo da Estufa */}
+      {/* Foto de Fundo da Estufa (Desfocada e Escura) */}
       <div className="hero-video-container">
         <div className="hero-photo-bg"></div>
         <div className="hero-video-overlay"></div>
@@ -43,10 +43,8 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Seção com QR Code do Instagram e Espaços para Certificados */}
+          {/* Card com QR Code do Instagram Oficial */}
           <div className="hero-trust-bar reveal">
-            
-            {/* Card do QR Code do Instagram */}
             <a 
               href="https://instagram.com/ranchomatogrossoiguarias" 
               target="_blank" 
@@ -63,30 +61,6 @@ export default function Hero() {
                 <span className="qr-hint">Escaneie ou toque para abrir</span>
               </div>
             </a>
-
-            {/* Espaços Reservados para Certificados Futuros */}
-            <div className="certifications-row">
-              <div className="cert-badge-slot">
-                <div className="cert-icon-frame">
-                  <Award size={20} color="#D97706" />
-                </div>
-                <div className="cert-details">
-                  <span className="cert-status">EM HOMOLOGAÇÃO</span>
-                  <span className="cert-title">Certificação de Origem & Pureza</span>
-                </div>
-              </div>
-
-              <div className="cert-badge-slot">
-                <div className="cert-icon-frame">
-                  <ShieldCheck size={20} color="#059669" />
-                </div>
-                <div className="cert-details">
-                  <span className="cert-status">EM CERTIFICAÇÃO</span>
-                  <span className="cert-title">Selo Produção Sustentável</span>
-                </div>
-              </div>
-            </div>
-
           </div>
 
         </div>
