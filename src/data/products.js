@@ -319,17 +319,6 @@ export const products = [
     tagClass: ''
   },
   {
-    id: 'frutas-vermelhas-congeladas-1kg',
-    name: 'Frutas Vermelhas Congeladas 1kg',
-    category: 'escolhas-que-amamos',
-    categoryLabel: 'ESCOLHAS QUE AMAMOS',
-    price: 35.00,
-    description: 'Morangos higienizados e congelados soltinhos com mirtilos e amoras selecionados.',
-    image: '/assets/frutas_vermelhas_congeladas.jpg',
-    tag: '',
-    tagClass: ''
-  },
-  {
     id: 'tomate-sweet-grape-1kg',
     name: 'Tomate Sweet Grape 1kg',
     category: 'escolhas-que-amamos',
