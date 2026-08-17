@@ -528,23 +528,44 @@ button, input, select, textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 32px;
-  padding-top: 28px;
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  gap: 30px;
   flex-wrap: wrap;
-  width: 100%;
-  max-width: 600px;
 }
 
 .feature-pure-item {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.825rem;
   font-weight: 800;
-  letter-spacing: 1.2px;
+  font-size: 0.82rem;
+  letter-spacing: 1px;
   color: #F3F4F6;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 480px) {
+  .hero-pure-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .btn-pure-red, .btn-pure-outline {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+    font-size: 0.82rem;
+  }
+
+  .hero-pure-features {
+    gap: 12px 18px;
+    justify-content: center;
+  }
+
+  .feature-pure-item {
+    font-size: 0.76rem;
+  }
 }
 
 /* Coluna da Direita: Card de Foto Arredondado com Camadas */
@@ -785,13 +806,31 @@ button, input, select, textarea {
   line-height: 1.6;
 }
 
-/* Abas de Categoria Padronizadas no Vermelho */
+/* Abas do Catálogo com Rolagem Touch Fluida no Celular */
 .catalog-ref-tabs {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 45px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .catalog-ref-tabs {
+    justify-content: flex-start;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 4px 2px 12px 2px;
+    margin-bottom: 24px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .catalog-ref-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .cat-ref-btn {
+    flex-shrink: 0;
+  }
 }
 
 .cat-ref-btn {
@@ -821,7 +860,7 @@ button, input, select, textarea {
   box-shadow: 0 4px 14px rgba(198, 40, 40, 0.3);
 }
 
-/* Grid de 4 Cards por Linha */
+/* Grid de 4 Cards por Linha (Desktop) / 2 Cards (Celular/Tablet) */
 .catalog-ref-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -830,11 +869,43 @@ button, input, select, textarea {
 
 @media (max-width: 1100px) {
   .catalog-ref-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  .catalog-ref-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .card-ref-body {
+    padding: 12px 10px;
+  }
+  .card-ref-title {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+  .card-ref-desc {
+    font-size: 0.76rem;
+    line-height: 1.35;
+    margin-bottom: 10px;
+  }
+  .card-ref-footer {
+    padding-top: 8px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+  .card-ref-pedir-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 6px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 360px) {
   .catalog-ref-grid {
     grid-template-columns: 1fr;
   }
