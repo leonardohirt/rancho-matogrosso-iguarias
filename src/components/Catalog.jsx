@@ -1,12 +1,33 @@
 import React, { useState } from 'react';
 import { products, categories } from '../data/products';
-import { MessageCircle } from 'lucide-react';
+import { MessageCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { useIsMobile } from '../lib/useIsMobile';
 
 export default function Catalog({ products: propProducts, onAddToCart, onQuickView }) {
+  const isMobile = useIsMobile();
   const [activeCategory, setActiveCategory] = useState('morangos');
+
+  // Estados de expansão para telas Mobile
+  const [showAllCategoriesMobile, setShowAllCategoriesMobile] = useState(false);
+  const [showAllProductsMobile, setShowAllProductsMobile] = useState(false);
 
   const allProducts = propProducts || products;
   const filteredProducts = allProducts.filter(product => product.category === activeCategory);
+
+  // No mobile: exibe apenas 3 seções (categorias) inicialmente se não tiver expandido
+  const displayedCategories = (isMobile && !showAllCategoriesMobile) 
+    ? categories.slice(0, 3) 
+    : categories;
+
+  // No mobile: exibe apenas 4 itens por categoria inicialmente se não tiver expandido
+  const displayedProducts = (isMobile && !showAllProductsMobile) 
+    ? filteredProducts.slice(0, 4) 
+    : filteredProducts;
+
+  const handleCategoryClick = (catId) => {
+    setActiveCategory(catId);
+    setShowAllProductsMobile(false); // Reseta para exibir os 4 primeiros produtos na nova categoria
+  };
 
   return (
     <section className="catalog-section" id="catalogo">
@@ -21,22 +42,43 @@ export default function Catalog({ products: propProducts, onAddToCart, onQuickVi
           </p>
         </div>
 
-        {/* Abas de Categorias com o visual da imagem de referência */}
-        <div className="catalog-ref-tabs">
-          {categories.map(cat => (
-            <button
-              key={cat.id}
-              className={`cat-ref-btn ${activeCategory === cat.id ? 'active' : ''}`}
-              onClick={() => setActiveCategory(cat.id)}
-            >
-              {cat.label}
-            </button>
-          ))}
+        {/* Abas de Categorias / Seções com limite de 3 no mobile */}
+        <div className="catalog-ref-tabs-container">
+          <div className="catalog-ref-tabs">
+            {displayedCategories.map(cat => (
+              <button
+                key={cat.id}
+                className={`cat-ref-btn ${activeCategory === cat.id ? 'active' : ''}`}
+                onClick={() => handleCategoryClick(cat.id)}
+              >
+                {cat.label}
+              </button>
+            ))}
+
+            {/* Botão para Expandir/Recolher Seções no Mobile */}
+            {isMobile && !showAllCategoriesMobile && categories.length > 3 && (
+              <button
+                className="cat-ref-btn ver-mais-secoes-btn"
+                onClick={() => setShowAllCategoriesMobile(true)}
+              >
+                + Ver mais seções ({categories.length - 3}) <ChevronDown size={14} />
+              </button>
+            )}
+
+            {isMobile && showAllCategoriesMobile && (
+              <button
+                className="cat-ref-btn ver-menos-secoes-btn"
+                onClick={() => setShowAllCategoriesMobile(false)}
+              >
+                Ver menos seções <ChevronUp size={14} />
+              </button>
+            )}
+          </div>
         </div>
 
-        {/* Grid de 4 Cards Fiel ao Design Enviado */}
+        {/* Grid de Cards */}
         <div className="catalog-ref-grid">
-          {filteredProducts.map(product => (
+          {displayedProducts.map(product => (
             <div key={product.id} className="catalog-ref-card">
               
               {/* Imagem Quadrada (1:1) com Badge */}
@@ -59,7 +101,7 @@ export default function Catalog({ products: propProducts, onAddToCart, onQuickVi
                   {product.description}
                 </p>
 
-                {/* Rodapé com Preço e Botão PEDIR (Vinho/Vermelho) */}
+                {/* Rodapé com Preço e Botão PEDIR */}
                 <div className="card-ref-footer">
                   {product.category === 'queijos' || product.isPricePerPiece || product.price === 0 ? (
                     <div className="card-ref-price-piece">
@@ -89,6 +131,27 @@ export default function Catalog({ products: propProducts, onAddToCart, onQuickVi
             </div>
           ))}
         </div>
+
+        {/* Botão Ver Mais Produtos para Mobile quando a categoria tem mais de 4 itens */}
+        {isMobile && filteredProducts.length > 4 && (
+          <div style={{ textAlign: 'center', marginTop: '24px' }}>
+            {!showAllProductsMobile ? (
+              <button 
+                className="btn-ver-mais-produtos-mobile"
+                onClick={() => setShowAllProductsMobile(true)}
+              >
+                VER MAIS PRODUTOS (+{filteredProducts.length - 4}) <ChevronDown size={18} />
+              </button>
+            ) : (
+              <button 
+                className="btn-ver-mais-produtos-mobile outline"
+                onClick={() => setShowAllProductsMobile(false)}
+              >
+                VER MENOS PRODUTOS <ChevronUp size={18} />
+              </button>
+            )}
+          </div>
+        )}
 
       </div>
     </section>

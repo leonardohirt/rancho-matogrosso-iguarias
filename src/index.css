@@ -688,6 +688,54 @@ button, input, select, textarea {
   transform: translateY(0) !important;
 }
 
+/* Botões de Ver Mais no Mobile */
+.ver-mais-secoes-btn {
+  background-color: #F8FAFC !important;
+  color: var(--primary-red) !important;
+  border: 1px dashed var(--primary-red) !important;
+  font-weight: 600 !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ver-menos-secoes-btn {
+  background-color: #FFF1F2 !important;
+  color: var(--primary-red) !important;
+  border: 1px solid #FECDD3 !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-ver-mais-produtos-mobile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 320px;
+  padding: 14px 24px;
+  background-color: var(--primary-red);
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(198, 40, 40, 0.25);
+  transition: all 0.25s ease;
+}
+
+.btn-ver-mais-produtos-mobile.outline {
+  background-color: #FFFFFF;
+  color: var(--text-dark);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+
 /* Coluna da Direita: Card de Foto Arredondado com Camadas */
 .hero-pure-visual {
   position: relative;
