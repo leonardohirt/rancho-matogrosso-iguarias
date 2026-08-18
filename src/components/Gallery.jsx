@@ -2,16 +2,14 @@ import React from 'react';
 import { Camera } from 'lucide-react';
 
 export default function Gallery() {
-  // Lista exclusiva contendo APENAS as fotos reais dos itens/produtos do Rancho Matogrosso
+  // Lista exclusiva contendo fotos reais dos itens/produtos do Rancho Matogrosso
   const images = [
     { src: '/assets/morango_red_gold_oficial.jpg', label: 'Morango Red Gold 500g' },
     { src: '/assets/morango_premium_colheita.jpg', label: 'Morango Premium Colheita do Dia' },
     { src: '/assets/morango_300g_bandeja.jpg', label: 'Bandeja de Morangos Selecionados 300g' },
     { src: '/assets/morango_600g_bandeja.jpg', label: 'Embalagem Especial de Morangos 600g' },
     { src: '/assets/kokedama_oficial.jpg', label: 'Muda de Morango em Kokedama Artesanal' },
-    { src: '/assets/licor_artesanal_1784581807426.jpg', label: 'Licor Artesanal de Morango Rancho Matogrosso' },
     { src: '/assets/licor_butia_red_john.jpg', label: 'Licor de Butiá Red John Edição Especial' },
-    { src: '/assets/geleia_artesanal_1784581780896.jpg', label: 'Geleia Artesanal de Morango 0% Açúcar' },
     { src: '/assets/frutas_vermelhas_congeladas.jpg', label: 'Frutas Vermelhas Congeladas (1kg)' },
     { src: '/assets/mirtilo_congelado.jpg', label: 'Mirtilos Selecionados Ultra-Congelados (500g)' },
     { src: '/assets/mix_frutas_congeladas.jpg', label: 'Mix Premium de Frutas Vermelhas Congeladas' },
