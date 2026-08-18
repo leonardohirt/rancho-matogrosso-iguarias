@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section className="hero-pure-section" id="home">
       
-      {/* Foto de Fundo da Estufa (Desfocada e Escura) */}
+      {/* Foto de Fundo da Estufa */}
       <div className="hero-video-container">
         <div className="hero-photo-bg"></div>
         <div className="hero-video-overlay"></div>
@@ -36,30 +36,6 @@ export default function Hero() {
           </div>
 
         </div>
-
-        {/* Card do QR Code do Instagram Fiel à Imagem no Canto Direito */}
-        <div className="hero-qr-corner-wrapper">
-          <a 
-            href="https://instagram.com/ranchomatogrossoiguarias" 
-            target="_blank" 
-            rel="noreferrer" 
-            className="qr-dark-card-link"
-            title="Siga nosso Instagram @ranchomatogrossoiguarias"
-          >
-            <div className="qr-dark-img-box">
-              <img src="/assets/qr_code_instagram.png" alt="QR Code Instagram @ranchomatogrossoiguarias" />
-            </div>
-            <div className="qr-dark-card-info">
-              <span className="qr-red-tag">SIGA NOSSO</span>
-              <h4 className="qr-serif-title">Instagram</h4>
-              <span className="qr-handle-text">@ranchomatogrossoiguarias</span>
-              <p className="qr-sub-desc">
-                Escaneie o QR Code<br />e acompanhe nosso dia a dia!
-              </p>
-            </div>
-          </a>
-        </div>
-
       </div>
 
     </section>
