@@ -11,7 +11,7 @@ export default function CartDrawer({ isOpen, onClose, cart, onUpdateQuantity, on
   const handleSendWhatsApp = () => {
     if (cart.length === 0) return;
 
-    let message = `🛍️ *NOVO PEDIDO - RANCHO MATOGROSSO IGUARIAS*\n\n`;
+    let message = `*NOVO PEDIDO - RANCHO MATOGROSSO IGUARIAS*\n\n`;
     
     cart.forEach(item => {
       if (item.category === 'queijos' || item.isPricePerPiece || item.price === 0) {
@@ -22,8 +22,8 @@ export default function CartDrawer({ isOpen, onClose, cart, onUpdateQuantity, on
       }
     });
 
-    message += `\n💳 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}${hasPieceItem ? ' (+ Peça a confirmar)' : ''}\n`;
-    message += `📍 *LOCAL DE RETIRADA:* ${pickupLocation}\n\n`;
+    message += `\n*VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}${hasPieceItem ? ' (+ Peça a confirmar)' : ''}\n`;
+    message += `*LOCAL DE RETIRADA:* ${pickupLocation}\n\n`;
     message += `Olá Alex e Indianara! Gostaria de confirmar a disponibilidade para retirar este pedido.`;
 
     const phone = '554288897545';
