@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ShoppingBag, X, Trash2, MapPin, MessageCircle, ShieldCheck } from 'lucide-react';
 
 export default function CartDrawer({ isOpen, onClose, cart, onUpdateQuantity, onRemoveFromCart }) {
-  const [pickupLocation, setPickupLocation] = useState('Loja 01 - Rua Getúlio Vargas, 1857 (Centro)');
+  const [pickupLocation, setPickupLocation] = useState('Combinar entrega via WhatsApp');
 
   const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
@@ -11,12 +11,12 @@ export default function CartDrawer({ isOpen, onClose, cart, onUpdateQuantity, on
   const handleSendWhatsApp = () => {
     if (cart.length === 0) return;
 
-    let message = `🍓 *NOVO PEDIDO - RANCHO MATOGROSSO IGUARIAS*\n`;
+    let message = `🛍️ *NOVO PEDIDO - RANCHO MATOGROSSO IGUARIAS*\n`;
     message += `-----------------------------------------\n`;
     
     cart.forEach(item => {
       if (item.category === 'queijos' || item.isPricePerPiece || item.price === 0) {
-        message += `• ${item.quantity}x *${item.name}* (Vendido por peça - Valor/peso a confirmar)\n`;
+        message += `• ${item.quantity}x *${item.name}* (Vendido por peça)\n`;
       } else {
         const subtotal = item.price * item.quantity;
         message += `• ${item.quantity}x *${item.name}* (R$ ${item.price.toFixed(2).replace('.', ',')} un) = R$ ${subtotal.toFixed(2).replace('.', ',')}\n`;
@@ -24,7 +24,7 @@ export default function CartDrawer({ isOpen, onClose, cart, onUpdateQuantity, on
     });
 
     message += `-----------------------------------------\n`;
-    message += `💰 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}${hasPieceItem ? ' (+ Peça/peso a confirmar)' : ''}\n`;
+    message += `💳 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}${hasPieceItem ? ' (+ Peça a confirmar)' : ''}\n`;
     message += `📍 *LOCAL DE RETIRADA:* ${pickupLocation}\n`;
     message += `-----------------------------------------\n`;
     message += `Olá Alex e Indianara! Gostaria de confirmar a disponibilidade para retirar este pedido.`;
@@ -80,10 +80,10 @@ export default function CartDrawer({ isOpen, onClose, cart, onUpdateQuantity, on
             <div className="cart-location-selector">
               <label htmlFor="pickupSelect"><MapPin size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} /> Escolha onde deseja retirar:</label>
               <select id="pickupSelect" value={pickupLocation} onChange={(e) => setPickupLocation(e.target.value)}>
+                <option value="Combinar entrega via WhatsApp">Combinar entrega via WhatsApp</option>
                 <option value="Loja 01 - Rua Getúlio Vargas, 1857 (Centro)">Loja 01 - Centro (Terça a Sáb: 9h-18h)</option>
                 <option value="Feira Unicentro Santa Cruz">Feira Unicentro Santa Cruz (Terça: 7h30-11h)</option>
                 <option value="Feira Unicentro Cedeteg">Feira Unicentro Cedeteg (Quinta: 7h30-11h)</option>
-                <option value="Combinar entrega via WhatsApp">Combinar entrega / Dúvidas via WhatsApp</option>
               </select>
             </div>
 
