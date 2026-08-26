@@ -529,7 +529,9 @@ button, input, select, textarea {
   color: rgba(255, 255, 255, 0.92);
   text-transform: uppercase;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-  margin-bottom: 24px;
+  margin: 0 auto 24px auto;
+  text-align: center;
+  width: 100%;
 }
 
 .hero-pillars-horizontal-wrapper {
