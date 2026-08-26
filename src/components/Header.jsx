@@ -27,9 +27,9 @@ export default function Header({ cartCount, onOpenCart }) {
       <header className="main-header">
         <div className="container header-container">
           <a href="#" className="brand-logo">
-            <img src="/assets/logo.jpg" alt="Rancho Matogrosso Logo" />
+            <img src="/assets/logo.png" alt="Rancho Mato Grosso Logo Oficial" style={{ maxHeight: '48px', width: 'auto', objectFit: 'contain' }} />
             <div className="brand-text">
-              <span className="brand-title">Rancho Matogrosso</span>
+              <span className="brand-title">Rancho Mato Grosso</span>
             </div>
           </a>
 

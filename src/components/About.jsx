@@ -1,17 +1,118 @@
-import React from 'react';
-import { Heart, ShieldCheck, Sprout, Award, MapPin } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Heart, ShieldCheck, Sprout, Award, ChevronLeft, ChevronRight } from 'lucide-react';
+
+const familySlides = [
+  {
+    src: '/assets/alex_cesta_morangos.jpg',
+    title: 'Alex e a Colheita Fresca',
+    caption: 'Morangos selecionados colhidos no ponto perfeito'
+  },
+  {
+    src: '/assets/familia_lupas_estufa.jpg',
+    title: 'Manejo e Tecnologia no Campo',
+    caption: 'Alex, Indianara e filhinha acompanhando o cultivo sustentável'
+  },
+  {
+    src: '/assets/filha_morango_gigante.jpg',
+    title: 'Frutos de Alta Qualidade',
+    caption: 'Morangos doces, graúdos e saudáveis para a família'
+  },
+  {
+    src: '/assets/indianara_morangos_frescos.jpg',
+    title: 'Dedicação e Carinho',
+    caption: 'Indianara com os frutos colhidos na estufa'
+  },
+  {
+    src: '/assets/filha_estufa_amarelo.jpg',
+    title: 'Amor pela Terra',
+    caption: 'Conexão direta com a natureza desde os primeiros passos'
+  },
+  {
+    src: '/assets/construcao_estufa_inicio.jpg',
+    title: 'O Início do Sonho',
+    caption: 'Alex e Indianara na construção das primeiras estufas'
+  },
+  {
+    src: '/assets/alex_indianara_terreno_araucaria.jpg',
+    title: 'O Rancho Matogrosso',
+    caption: 'Preservação e produção em harmonia com os campos de Guarapuava'
+  }
+];
 
 export default function About() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Auto-play no carrossel: passa sozinho a cada 11 segundos
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % familySlides.length);
+    }, 11000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handlePrev = () => {
+    setCurrentSlide((prev) => (prev === 0 ? familySlides.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % familySlides.length);
+  };
+
   return (
     <section className="about-section" id="sobre">
       <div className="container">
         <div className="about-grid">
-          <div className="about-image-wrapper">
-            <img 
-              src="/assets/familia_rancho_mato_grosso.jpg" 
-              alt="Família Rancho Matogrosso - Alex, Indianara e Filha" 
-              className="about-img-main"
-            />
+          
+          {/* Carrossel da História da Família */}
+          <div className="about-carousel-container">
+            <div className="about-carousel-wrapper">
+              {familySlides.map((slide, idx) => (
+                <div
+                  key={idx}
+                  className={`about-slide-item ${idx === currentSlide ? 'active' : ''}`}
+                >
+                  <img
+                    src={slide.src}
+                    alt={slide.title}
+                    className="about-img-main"
+                  />
+                  <div className="about-slide-caption">
+                    <strong>{slide.title}</strong>
+                    <span>{slide.caption}</span>
+                  </div>
+                </div>
+              ))}
+
+              {/* Botões de Navegação Manual */}
+              <button 
+                className="about-carousel-arrow prev" 
+                onClick={handlePrev}
+                aria-label="Foto anterior"
+              >
+                <ChevronLeft size={20} />
+              </button>
+
+              <button 
+                className="about-carousel-arrow next" 
+                onClick={handleNext}
+                aria-label="Próxima foto"
+              >
+                <ChevronRight size={20} />
+              </button>
+
+              {/* Indicadores de bolinhas */}
+              <div className="about-carousel-dots">
+                {familySlides.map((_, idx) => (
+                  <button
+                    key={idx}
+                    className={`about-dot ${idx === currentSlide ? 'active' : ''}`}
+                    onClick={() => setCurrentSlide(idx)}
+                    aria-label={`Ver foto ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+
             <div className="about-badge-floating">
               <Award size={24} color="#C62828" />
               <div>

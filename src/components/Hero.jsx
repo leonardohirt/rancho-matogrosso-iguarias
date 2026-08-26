@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageCircle } from 'lucide-react';
+import { MessageCircle, Sprout, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -17,12 +17,12 @@ export default function Hero() {
 
           {/* Headline Principal */}
           <h1 className="hero-pure-title">
-            Rancho <span className="script-italic-red">Matogrosso</span>
+            Rancho <span className="script-italic-red">Mato Grosso</span>
           </h1>
 
-          {/* Subtítulo Conciso */}
-          <p className="hero-pure-desc">
-            Fruticultura Inteligente
+          {/* Subtítulo Oficial / Slogan */}
+          <p className="hero-pure-desc slogan-highlight">
+            GIGANTE PELA PRÓPRIA NATUREZA
           </p>
 
           {/* Botões em Formato Pílula */}
@@ -36,6 +36,48 @@ export default function Hero() {
           </div>
 
         </div>
+
+        {/* Card de Selos e Pilares de Qualidade no Canto */}
+        <div className="hero-pillars-corner-wrapper">
+          <div className="pillars-dark-card">
+            
+            <div className="pillar-seal-item">
+              <div className="seal-icon-circle green">
+                <Sprout size={16} />
+              </div>
+              <div className="seal-info">
+                <strong>Fruticultura Inteligente</strong>
+                <span>Tecnologia & cultivo sustentável</span>
+              </div>
+            </div>
+
+            <div className="pillar-seal-divider"></div>
+
+            <div className="pillar-seal-item">
+              <div className="seal-icon-circle gold">
+                <ShieldCheck size={16} />
+              </div>
+              <div className="seal-info">
+                <strong>Segurança Alimentar</strong>
+                <span>Higiene & controle rigoroso</span>
+              </div>
+            </div>
+
+            <div className="pillar-seal-divider"></div>
+
+            <div className="pillar-seal-item">
+              <div className="seal-icon-circle red">
+                <CheckCircle2 size={16} />
+              </div>
+              <div className="seal-info">
+                <strong>Sem Resíduos de Agrotóxicos</strong>
+                <span>Morangos puros e saudáveis</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
 
     </section>

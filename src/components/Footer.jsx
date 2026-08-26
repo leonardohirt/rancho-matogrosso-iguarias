@@ -15,9 +15,9 @@ export default function Footer() {
       <footer className="main-footer">
         <div className="container footer-grid">
           <div className="footer-brand">
-            <img src="/assets/logo.jpg" alt="Logo Rancho Matogrosso" className="footer-logo" />
-            <h3>Rancho Matogrosso Iguarias</h3>
-            <p className="tagline">"Gigante pela própria natureza!"</p>
+            <img src="/assets/logo.png" alt="Logo Rancho Mato Grosso" className="footer-logo" style={{ maxHeight: '70px', width: 'auto', objectFit: 'contain' }} />
+            <h3>Rancho Mato Grosso Iguarias</h3>
+            <p className="tagline">"GIGANTE PELA PRÓPRIA NATUREZA"</p>
             <p>1ª Loja especializada em morangos do Brasil. Referência na Região Central do Paraná com mais de 8.000 clientes satisfeitos.</p>
           </div>
 
@@ -43,7 +43,7 @@ export default function Footer() {
 
         <div className="footer-bottom">
           <div className="container footer-bottom-content">
-            <p>&copy; 2026 Rancho Matogrosso Iguarias. Todos os direitos reservados. Desenvolvido por lghweb.</p>
+            <p>&copy; 2026 Rancho Mato Grosso Iguarias. Todos os direitos reservados. Desenvolvido por lghweb.</p>
             <div className="footer-socials">
               <a href="https://instagram.com/ranchomatogrossoiguarias" target="_blank" rel="noreferrer" aria-label="Instagram">
                 <InstagramIcon size={20} />
