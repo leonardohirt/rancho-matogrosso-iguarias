@@ -99,18 +99,6 @@ export default function About() {
               >
                 <ChevronRight size={20} />
               </button>
-
-              {/* Indicadores de bolinhas */}
-              <div className="about-carousel-dots">
-                {familySlides.map((_, idx) => (
-                  <button
-                    key={idx}
-                    className={`about-dot ${idx === currentSlide ? 'active' : ''}`}
-                    onClick={() => setCurrentSlide(idx)}
-                    aria-label={`Ver foto ${idx + 1}`}
-                  />
-                ))}
-              </div>
             </div>
 
             <div className="about-badge-floating">
