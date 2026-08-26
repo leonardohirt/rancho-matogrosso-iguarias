@@ -5,17 +5,25 @@ export default function Hero() {
   return (
     <section className="hero-pure-section" id="home">
       
-      {/* Foto de Fundo da Estufa */}
+      {/* Vídeo de Fundo da Estufa */}
       <div className="hero-video-container">
-        <div className="hero-photo-bg"></div>
-        <div className="hero-video-overlay"></div>
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="hero-video-element"
+        >
+          <source src="/assets/morango-video.mp4" type="video/mp4" />
+        </video>
+        <div className="hero-video-overlay darker"></div>
       </div>
 
       <div className="container hero-layout-container">
         {/* Conteúdo Centralizado */}
         <div className="hero-pure-centered-content">
 
-          {/* Headline Principal */}
+          {/* Headline Principal com texto em Branco */}
           <h1 className="hero-pure-title">
             Rancho <span className="script-italic-red">Mato Grosso</span>
           </h1>
