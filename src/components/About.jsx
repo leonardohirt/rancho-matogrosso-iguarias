@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, ShieldCheck, Sprout, Award, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Heart, ShieldCheck, Sprout } from 'lucide-react';
 
 const familySlides = [
   {
@@ -50,20 +50,12 @@ export default function About() {
     return () => clearInterval(timer);
   }, []);
 
-  const handlePrev = () => {
-    setCurrentSlide((prev) => (prev === 0 ? familySlides.length - 1 : prev - 1));
-  };
-
-  const handleNext = () => {
-    setCurrentSlide((prev) => (prev + 1) % familySlides.length);
-  };
-
   return (
     <section className="about-section" id="sobre">
       <div className="container">
         <div className="about-grid">
           
-          {/* Carrossel da História da Família */}
+          {/* Carrossel da História da Família sem setas e sem selo flutuante */}
           <div className="about-carousel-container">
             <div className="about-carousel-wrapper">
               {familySlides.map((slide, idx) => (
@@ -82,31 +74,6 @@ export default function About() {
                   </div>
                 </div>
               ))}
-
-              {/* Botões de Navegação Manual */}
-              <button 
-                className="about-carousel-arrow prev" 
-                onClick={handlePrev}
-                aria-label="Foto anterior"
-              >
-                <ChevronLeft size={20} />
-              </button>
-
-              <button 
-                className="about-carousel-arrow next" 
-                onClick={handleNext}
-                aria-label="Próxima foto"
-              >
-                <ChevronRight size={20} />
-              </button>
-            </div>
-
-            <div className="about-badge-floating">
-              <Award size={24} color="#C62828" />
-              <div>
-                <strong>Pioneiros no Brasil</strong>
-                <span>1ª Loja Especializada em Morangos</span>
-              </div>
             </div>
           </div>
 
