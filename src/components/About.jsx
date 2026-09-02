@@ -4,38 +4,31 @@ import { Heart, ShieldCheck, Sprout } from 'lucide-react';
 const familySlides = [
   {
     src: '/assets/alex_cesta_morangos.jpg',
-    title: 'Alex e a Colheita Fresca',
-    caption: 'Morangos selecionados colhidos no ponto perfeito'
+    title: 'Alex e a Colheita Fresca'
   },
   {
     src: '/assets/familia_lupas_estufa.jpg',
-    title: 'Manejo e Tecnologia no Campo',
-    caption: 'Alex, Indianara e filhinha acompanhando o cultivo sustentável'
+    title: 'Manejo e Tecnologia no Campo'
   },
   {
     src: '/assets/filha_morango_gigante.jpg',
-    title: 'Frutos de Alta Qualidade',
-    caption: 'Morangos doces, graúdos e saudáveis para a família'
+    title: 'Frutos de Alta Qualidade'
   },
   {
     src: '/assets/indianara_morangos_frescos.jpg',
-    title: 'Dedicação e Carinho',
-    caption: 'Indianara com os frutos colhidos na estufa'
+    title: 'Dedicação e Carinho'
   },
   {
     src: '/assets/filha_estufa_amarelo.jpg',
-    title: 'Amor pela Terra',
-    caption: 'Conexão direta com a natureza desde os primeiros passos'
+    title: 'Amor pela Terra'
   },
   {
     src: '/assets/construcao_estufa_inicio.jpg',
-    title: 'O Início do Sonho',
-    caption: 'Alex e Indianara na construção das primeiras estufas'
+    title: 'O Início do Sonho'
   },
   {
     src: '/assets/alex_indianara_terreno_araucaria.jpg',
-    title: 'O Rancho Matogrosso',
-    caption: 'Preservação e produção em harmonia com os campos de Guarapuava'
+    title: 'O Rancho Matogrosso'
   }
 ];
 
@@ -55,7 +48,7 @@ export default function About() {
       <div className="container">
         <div className="about-grid">
           
-          {/* Carrossel da História da Família sem setas e sem selo flutuante */}
+          {/* Carrossel da História da Família sem setas, sem selo flutuante e sem legenda */}
           <div className="about-carousel-container">
             <div className="about-carousel-wrapper">
               {familySlides.map((slide, idx) => (
@@ -68,10 +61,6 @@ export default function About() {
                     alt={slide.title}
                     className="about-img-main"
                   />
-                  <div className="about-slide-caption">
-                    <strong>{slide.title}</strong>
-                    <span>{slide.caption}</span>
-                  </div>
                 </div>
               ))}
             </div>
