@@ -1,11 +1,10 @@
 export const categories = [
   { id: 'morangos', label: 'MORANGOS' },
+  { id: 'geleias', label: 'GELEIAS ARTESANAIS' },
   { id: 'casa-luchese', label: 'CASA LUCHESE' },
   { id: 'queijos', label: 'QUEIJOS ARTESANAIS' },
   { id: 'congelados', label: 'CONGELADOS' },
-  { id: 'kokedama', label: 'KOKEDAMA' },
-  { id: 'geleias-tradicionais', label: 'GELEIAS TRADICIONAIS' },
-  { id: 'geleias-zero', label: 'GELEIAS ZERO AÇÚCAR' }
+  { id: 'kokedama', label: 'KOKEDAMA' }
 ];
 
 export const products = [
@@ -75,6 +74,52 @@ export const products = [
     image: '/assets/crop_morango_kids.jpg',
     tag: '',
     tagClass: ''
+  },
+
+  // --- GELEIAS ARTESANAIS (TRADICIONAIS & ZERO AÇÚCAR) ---
+  {
+    id: 'geleia-morango-tradicional-250g',
+    name: 'Geleia de Morango Tradicional 250g',
+    category: 'geleias',
+    categoryLabel: 'GELEIAS ARTESANAIS',
+    price: 22.00,
+    description: 'Receita de família desde 1973! Feita com pedaços inteiros de morango fresco.',
+    image: '/assets/sq_geleia_artesanal_1784593733518.jpg',
+    tag: 'TRADICIONAL',
+    tagClass: ''
+  },
+  {
+    id: 'geleia-frutas-vermelhas-250g',
+    name: 'Geleia de Frutas Vermelhas 250g',
+    category: 'geleias',
+    categoryLabel: 'GELEIAS ARTESANAIS',
+    price: 24.00,
+    description: 'Combinação perfeita de morangos, amoras e mirtilos cultivados no Rancho.',
+    image: '/assets/sq_geleia_artesanal_1784593733518.jpg',
+    tag: '',
+    tagClass: ''
+  },
+  {
+    id: 'geleia-morango-pimenta-250g',
+    name: 'Geleia de Morango com Pimenta 250g',
+    category: 'geleias',
+    categoryLabel: 'GELEIAS ARTESANAIS',
+    price: 24.00,
+    description: 'Contraste entre o doce do morango e o leve picante da pimenta dedo-de-moça.',
+    image: '/assets/geleia_artesanal_1784581780896.jpg',
+    tag: '',
+    tagClass: ''
+  },
+  {
+    id: 'geleia-morango-zero-250g',
+    name: 'Geleia de Morango 0% Açúcar 250g',
+    category: 'geleias',
+    categoryLabel: 'GELEIAS ARTESANAIS',
+    price: 25.00,
+    description: 'Zero adição de açúcares! Adoçada naturalmente com suco concentrado de maçã.',
+    image: '/assets/geleia_artesanal_1784581780896.jpg',
+    tag: '0% AÇÚCAR',
+    tagClass: 'green'
   },
 
   // --- CASA LUCHESE ---
@@ -253,54 +298,6 @@ export const products = [
     price: 90.00,
     description: 'Linda muda de morango em kokedama já produzindo! Acompanha nutrição especial.',
     image: '/assets/kokedama_oficial.jpg',
-    tag: '',
-    tagClass: ''
-  },
-
-  // --- GELEIAS TRADICIONAIS ---
-  {
-    id: 'geleia-morango-tradicional-250g',
-    name: 'Geleia de Morango Tradicional 250g',
-    category: 'geleias-tradicionais',
-    categoryLabel: 'GELEIAS TRADICIONAIS',
-    price: 22.00,
-    description: 'Receita de família desde 1973! Feita com pedaços inteiros de morango fresco.',
-    image: '/assets/sq_geleia_artesanal_1784593733518.jpg',
-    tag: '',
-    tagClass: ''
-  },
-  {
-    id: 'geleia-frutas-vermelhas-250g',
-    name: 'Geleia de Frutas Vermelhas 250g',
-    category: 'geleias-tradicionais',
-    categoryLabel: 'GELEIAS TRADICIONAIS',
-    price: 24.00,
-    description: 'Combinação perfeita de morangos, amoras e mirtilos cultivados no Rancho.',
-    image: '/assets/sq_geleia_artesanal_1784593733518.jpg',
-    tag: '',
-    tagClass: ''
-  },
-  {
-    id: 'geleia-morango-pimenta-250g',
-    name: 'Geleia de Morango com Pimenta 250g',
-    category: 'geleias-tradicionais',
-    categoryLabel: 'GELEIAS TRADICIONAIS',
-    price: 24.00,
-    description: 'Contraste entre o doce do morango e o leve picante da pimenta dedo-de-moça.',
-    image: '/assets/geleia_artesanal_1784581780896.jpg',
-    tag: '',
-    tagClass: ''
-  },
-
-  // --- GELEIAS ZERO AÇÚCAR ---
-  {
-    id: 'geleia-morango-zero-250g',
-    name: 'Geleia de Morango 0% Açúcar 250g',
-    category: 'geleias-zero',
-    categoryLabel: 'GELEIAS ZERO AÇÚCAR',
-    price: 25.00,
-    description: 'Zero adição de açúcares! Adoçada naturally com suco concentrado de maçã.',
-    image: '/assets/geleia_artesanal_1784581780896.jpg',
     tag: '',
     tagClass: ''
   },
