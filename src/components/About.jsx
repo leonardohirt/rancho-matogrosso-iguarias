@@ -35,11 +35,11 @@ const familySlides = [
 export default function About() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Auto-play no carrossel: passa sozinho a cada 11 segundos
+  // Auto-play no carrossel: passa sozinho mais rápido (a cada 3.5 segundos)
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % familySlides.length);
-    }, 11000);
+    }, 3500);
     return () => clearInterval(timer);
   }, []);
 
@@ -48,7 +48,7 @@ export default function About() {
       <div className="container">
         <div className="about-grid">
           
-          {/* Carrossel da História da Família sem setas, sem selo flutuante e sem legenda */}
+          {/* Carrossel da História da Família - Mais rápido, 100% limpo sem setas, selos ou legendas */}
           <div className="about-carousel-container">
             <div className="about-carousel-wrapper">
               {familySlides.map((slide, idx) => (

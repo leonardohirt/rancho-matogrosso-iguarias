@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageCircle, Sprout, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { MessageCircle, Sparkles, Leaf, Truck } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -23,7 +23,7 @@ export default function Hero() {
         {/* Conteúdo Centralizado */}
         <div className="hero-pure-centered-content">
 
-          {/* Headline Principal: Rancho Mato Grosso na mesma fonte script Mr Dafoe */}
+          {/* Headline Principal: Rancho Mato Grosso */}
           <h1 className="hero-pure-title script-italic-red">
             Rancho Mato Grosso
           </h1>
@@ -43,49 +43,25 @@ export default function Hero() {
             </a>
           </div>
 
-        </div>
-
-        {/* Card de Selos e Pilares de Qualidade no Canto Direito (como estava antes) */}
-        <div className="hero-pillars-corner-wrapper">
-          <div className="pillars-dark-card">
-            
-            <div className="pillar-seal-item">
-              <div className="seal-icon-circle green">
-                <Sprout size={16} />
-              </div>
-              <div className="seal-info">
-                <strong>Fruticultura Inteligente</strong>
-                <span>Tecnologia & cultivo sustentável</span>
-              </div>
+          {/* Barra Horizontal de Destaques: COLHEITA DIÁRIA | 100% ARTESANAL | RETIRADA RÁPIDA */}
+          <div className="hero-features-bar">
+            <div className="feature-bar-item">
+              <Sparkles size={16} className="feature-icon" />
+              <span>COLHEITA DIÁRIA</span>
             </div>
 
-            <div className="pillar-seal-divider"></div>
-
-            <div className="pillar-seal-item">
-              <div className="seal-icon-circle gold">
-                <ShieldCheck size={16} />
-              </div>
-              <div className="seal-info">
-                <strong>Segurança Alimentar</strong>
-                <span>Higiene & controle rigoroso</span>
-              </div>
+            <div className="feature-bar-item">
+              <Leaf size={16} className="feature-icon" />
+              <span>100% ARTESANAL</span>
             </div>
 
-            <div className="pillar-seal-divider"></div>
-
-            <div className="pillar-seal-item">
-              <div className="seal-icon-circle red">
-                <CheckCircle2 size={16} />
-              </div>
-              <div className="seal-info">
-                <strong>Sem Resíduos de Agrotóxicos</strong>
-                <span>Morangos puros e saudáveis</span>
-              </div>
+            <div className="feature-bar-item">
+              <Truck size={16} className="feature-icon" />
+              <span>RETIRADA RÁPIDA</span>
             </div>
-
           </div>
-        </div>
 
+        </div>
       </div>
 
     </section>
