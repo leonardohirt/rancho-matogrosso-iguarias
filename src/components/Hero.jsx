@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageCircle, Sparkles, Leaf, Truck } from 'lucide-react';
+import { MessageCircle, Sprout, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -43,21 +43,21 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Barra Horizontal de Destaques: COLHEITA DIÁRIA | 100% ARTESANAL | RETIRADA RÁPIDA */}
+          {/* Barra Horizontal Abaixo dos Botões com os 3 Pilares */}
           <div className="hero-features-bar">
             <div className="feature-bar-item">
-              <Sparkles size={16} className="feature-icon" />
-              <span>COLHEITA DIÁRIA</span>
+              <Sprout size={16} className="feature-icon green" />
+              <span>FRUTICULTURA INTELIGENTE</span>
             </div>
 
             <div className="feature-bar-item">
-              <Leaf size={16} className="feature-icon" />
-              <span>100% ARTESANAL</span>
+              <ShieldCheck size={16} className="feature-icon gold" />
+              <span>SEGURANÇA ALIMENTAR</span>
             </div>
 
             <div className="feature-bar-item">
-              <Truck size={16} className="feature-icon" />
-              <span>RETIRADA RÁPIDA</span>
+              <CheckCircle2 size={16} className="feature-icon red" />
+              <span>SEM RESÍDUOS DE AGROTÓXICOS</span>
             </div>
           </div>
 

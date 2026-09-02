@@ -569,6 +569,18 @@ button, input, select, textarea {
   flex-shrink: 0;
 }
 
+.feature-bar-item .feature-icon.green {
+  color: #4CAF50;
+}
+
+.feature-bar-item .feature-icon.gold {
+  color: #F59E0B;
+}
+
+.feature-bar-item .feature-icon.red {
+  color: #EF5350;
+}
+
 /* Layout da Seção Hero com Card no Canto Inferior Direito */
 .hero-layout-container {
   position: relative;
