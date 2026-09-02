@@ -5,8 +5,7 @@ export const categories = [
   { id: 'congelados', label: 'CONGELADOS' },
   { id: 'kokedama', label: 'KOKEDAMA' },
   { id: 'geleias-tradicionais', label: 'GELEIAS TRADICIONAIS' },
-  { id: 'geleias-zero', label: 'GELEIAS ZERO AÇÚCAR' },
-  { id: 'escolhas-que-amamos', label: 'ESCOLHAS QUE AMAMOS' }
+  { id: 'geleias-zero', label: 'GELEIAS ZERO AÇÚCAR' }
 ];
 
 export const products = [
@@ -306,51 +305,6 @@ export const products = [
     tagClass: ''
   },
 
-  // --- ESCOLHAS QUE AMAMOS (Licores, Frutas Congeladas, Tomates) ---
-  {
-    id: 'licor-butia-373ml',
-    name: 'Licor de Butiá Edição Especial 373ml (Red John)',
-    category: 'escolhas-que-amamos',
-    categoryLabel: 'ESCOLHAS QUE AMAMOS',
-    price: 79.90,
-    description: 'Licor encorpado de butiá envelhecido por 14 meses. Edição especial artesanal RED JOHN em garrafas numeradas.',
-    image: '/assets/licor_butia_red_john.jpg',
-    tag: '',
-    tagClass: ''
-  },
-  {
-    id: 'tomate-sweet-grape-1kg',
-    name: 'Tomate Sweet Grape 1kg',
-    category: 'escolhas-que-amamos',
-    categoryLabel: 'ESCOLHAS QUE AMAMOS',
-    price: 20.00,
-    description: 'Selecionados e deliciosos tomates Sweet Grape em rama, firmes e docinhos.',
-    image: '/assets/tomate_sweet_grape_fresco.jpg',
-    tag: '',
-    tagClass: ''
-  },
-  {
-    id: 'licor-morango-500ml',
-    name: 'Licor Fino de Morango 500ml',
-    category: 'escolhas-que-amamos',
-    categoryLabel: 'ESCOLHAS QUE AMAMOS',
-    price: 65.00,
-    description: 'Licor artesanal suave produzido com infusão natural de morangos.',
-    image: '/assets/sq_licor_artesanal_1784593756852.jpg',
-    tag: '',
-    tagClass: ''
-  },
-  {
-    id: 'licor-kinka-373ml',
-    name: 'Licor de Kinkã (Mini Laranja) 373ml',
-    category: 'escolhas-que-amamos',
-    categoryLabel: 'ESCOLHAS QUE AMAMOS',
-    price: 69.90,
-    description: 'Notas cítricas equilibradas e aroma marcante. Produção limitada.',
-    image: '/assets/licor_artesanal_1784581807426.jpg',
-    tag: '',
-    tagClass: ''
-  },
   // --- QUEIJOS ---
   {
     id: 'queijo-colonial-temperado',
