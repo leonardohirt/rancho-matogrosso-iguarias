@@ -364,7 +364,7 @@ export const products = [
   }
 ];
 
-const STORAGE_KEY = 'rancho_products_custom_db_v3';
+const STORAGE_KEY = 'rancho_products_custom_db_v4';
 
 export const getStoredProducts = () => {
   try {

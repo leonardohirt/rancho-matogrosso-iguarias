@@ -12,7 +12,18 @@ export default function Catalog({ products: propProducts, onAddToCart, onQuickVi
   const [showAllProductsMobile, setShowAllProductsMobile] = useState(false);
 
   const allProducts = propProducts || products;
-  const filteredProducts = allProducts.filter(product => product.category === activeCategory);
+  
+  // Filtro de produtos que aceita tanto a categoria unificada 'geleias' quanto legadas 'geleias-tradicionais' / 'geleias-zero'
+  const filteredProducts = allProducts.filter(product => {
+    if (activeCategory === 'geleias') {
+      return (
+        product.category === 'geleias' || 
+        product.category === 'geleias-tradicionais' || 
+        product.category === 'geleias-zero'
+      );
+    }
+    return product.category === activeCategory;
+  });
 
   // No mobile: exibe apenas 3 seções (categorias) inicialmente se não tiver expandido
   const displayedCategories = (isMobile && !showAllCategoriesMobile) 
